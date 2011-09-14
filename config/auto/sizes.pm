@@ -31,6 +31,15 @@ sub _init {
 sub runstep {
     my ( $self, $conf ) = @_;
 
+    # Force sizeof(INTVAL) == sizeof(void*) on 64-bit windows w/ msvc.  The
+    # proper fix is to get the assumption that pointers and INTVALs are the
+    # same size out of our code, but that's harder.  This cheat lets win64
+    # build normally.
+    if (  $conf->data->get('cpuarch') eq 'amd64'
+       && $conf->data->get('cc') eq 'cl') {
+           $conf->data->set('iv' => 'long long')
+    }
+
     my %types = (
         intval     => $conf->data->get('iv'),
         numval     => $conf->data->get('nv'),
