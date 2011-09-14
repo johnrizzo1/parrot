@@ -18,11 +18,11 @@ my @steps = qw(
     auto::gcc
     auto::glibc
     auto::backtrace
+    auto::msvc
     auto::attributes
     auto::warnings
     auto::arch
     auto::cpu
-    auto::msvc
     init::optimize
     inter::shlibs
     inter::libparrot

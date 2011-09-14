@@ -65,8 +65,6 @@ sub runstep {
         # compiler use more memory than they normally would
         $ccflags .= " -Zm1500 " if $msvcversion < 13;
 
-        $conf->data->set('intval' => 'long long') if $conf->data->get('cpuarch') eq 'amd64';
-
         my $ccwarn = '';
         # disable certain very noisy warnings
         if ($msvcversion >= 13) {
