@@ -548,6 +548,18 @@ Set attribute $3 of the parent $2 of object $1 to $4. (This is useful
 for storing data for a parent class attribute that is overridden in a
 child class.) The parent $2 is a class name, namespace, or key PMC.
 
+=item B<setattribute>(invar PMC, in STR, invar INT)
+
+=item B<setattribute>(invar PMC, in PMC, in STR, invar INT)
+
+=item B<setattribute>(invar PMC, in STR, invar STR)
+
+=item B<setattribute>(invar PMC, in PMC, in STR, invar STR)
+
+=item B<setattribute>(invar PMC, in STR, invar NUM)
+
+=item B<setattribute>(invar PMC, in PMC, in STR, invar NUM)
+
 =cut
 
 inline op setattribute(invar PMC, in STR, invar PMC) :object_classes {
