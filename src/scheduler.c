@@ -75,10 +75,9 @@ Parrot_cx_init_scheduler(PARROT_INTERP)
         interp->scheduler = Parrot_pmc_new(interp, enum_class_Scheduler);
 
         /* Make sure the program can handle alarm signals */
-        Parrot_alarm_init();
+        Parrot_alarm_init(interp, interp->scheduler);
     }
 }
-
 /*
 
 =item C<void Parrot_cx_begin_execution(PARROT_INTERP, PMC * const main, PMC *

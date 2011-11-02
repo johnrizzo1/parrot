@@ -65,10 +65,12 @@ STRING *Parrot_platform_strerror(PARROT_INTERP, INTVAL error);
 
 #ifdef _WIN32
 #  define PIO_INVALID_HANDLE ((void *)-1)
+typedef HANDLE PARROT_ALARM_DATA;
 typedef void *PIOHANDLE;
 typedef HUGEINTVAL PIOOFF_T;
 #else
 #  define PIO_INVALID_HANDLE -1
+typedef void *PARROT_ALARM_DATA;
 typedef INTVAL PIOHANDLE;
 typedef off_t PIOOFF_T;
 #endif

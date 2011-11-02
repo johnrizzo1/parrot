@@ -40,6 +40,7 @@ sub _set_implementations {
     my $conf = shift;
     my $platform = $conf->data->get('platform');
     my @impls = qw/
+        alarm.c
         io.c
         socket.c
         file.c

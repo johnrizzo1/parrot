@@ -40,6 +40,7 @@ pmclass Scheduler auto_attrs {
                                      /* Can perform task scheduling behaviors */
 
     ATTR Parrot_Interp interp;       /* A link to the scheduler's interpreter. */
+    ATTR PARROT_ALARM_DATA  alarm_data; /* Data for alarms */
 
 /*
 

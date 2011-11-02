@@ -11,6 +11,7 @@ src/alarm.c - Implements a mechanism for alarms, setting a flag after a delay.
 
 #include "parrot/parrot.h"
 #include "parrot/alarm.h"
+#include "parrot/scheduler.h"
 
 /* Some per-process state */
 static volatile UINTVAL  alarm_serial = 0;
@@ -19,15 +20,11 @@ static volatile FLOATVAL alarm_set_to = 0.0;
 /* This file relies on POSIX. Probably need two other versions of it:
  *  one for Windows and one for platforms with no signals or threads. */
 
-#ifdef _WIN32
-#  include <time.h>
-#else
-#  include <sys/time.h>
-#  include <signal.h>
-#endif
+#include <sys/time.h>
+#include <signal.h>
 #include <errno.h>
 
-/* HEADERIZER HFILE: include/parrot/alarm.h */
+/* HEADERIZER HFILE: none */
 
 /* HEADERIZER BEGIN: static */
 /* Don't modify between HEADERIZER BEGIN / HEADERIZER END.  Your changes will be lost. */
@@ -54,12 +51,12 @@ pthread. Any other pthreads should make sure to mask out SIGALRM.
 void Parrot_alarm_callback(SHIM(int sig_number));
 
 void
-Parrot_alarm_init(void)
+Parrot_alarm_init(PARROT_INTERP, ARGIN(PMC * const scheduler))
 {
     ASSERT_ARGS(Parrot_alarm_init)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
+    Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
+    sched->alarm_data = NULL;
+
     struct sigaction sa;
     memset(&sa, 0, sizeof (struct sigaction));
     sa.sa_handler = Parrot_alarm_callback;
@@ -71,7 +68,6 @@ Parrot_alarm_init(void)
     }
 
     Parrot_alarm_unmask(NULL);
-#endif
 }
 
 /*
@@ -88,9 +84,7 @@ static void
 posix_alarm_set(FLOATVAL wait)
 {
     ASSERT_ARGS(posix_alarm_set)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
+
     const int MIL = 1000000;
     struct itimerval itmr;
     int sec, usec;
@@ -112,7 +106,6 @@ posix_alarm_set(FLOATVAL wait)
             exit(EXIT_FAILURE);
         }
     }
-#endif
 }
 
 /*
@@ -132,28 +125,20 @@ void
 Parrot_alarm_mask(SHIM_INTERP)
 {
     ASSERT_ARGS(Parrot_alarm_mask)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
     sigset_t mask;
     sigemptyset(&mask);
     sigaddset(&mask, SIGALRM);
     pthread_sigmask(SIG_BLOCK, &mask, 0);
-#endif
 }
 
 void
 Parrot_alarm_unmask(SHIM_INTERP)
 {
     ASSERT_ARGS(Parrot_alarm_unmask)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
     sigset_t mask;
     sigemptyset(&mask);
     sigaddset(&mask, SIGALRM);
     pthread_sigmask(SIG_UNBLOCK, &mask, 0);
-#endif
 }
 
 /*
@@ -215,12 +200,9 @@ Sets an alarm to trigger at time 'when'.
 
 PARROT_EXPORT
 void
-Parrot_alarm_set(FLOATVAL when)
+Parrot_alarm_set(SHIM_INTERP, FLOATVAL when)
 {
     ASSERT_ARGS(Parrot_alarm_set)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
     FLOATVAL now = Parrot_floatval_time();
 
     /* Better late than early */
@@ -231,7 +213,6 @@ Parrot_alarm_set(FLOATVAL when)
 
     alarm_set_to = when;
     posix_alarm_set(when - now);
-#endif
 }
 
 /*
@@ -248,11 +229,7 @@ void
 Parrot_alarm_now(void)
 {
     ASSERT_ARGS(Parrot_alarm_now)
-#ifdef _WIN32
-    /* TODO: Implement on Windows */
-#else
     kill(getpid(), SIGALRM);
-#endif
 }
 
 /*
