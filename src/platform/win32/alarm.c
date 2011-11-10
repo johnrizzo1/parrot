@@ -15,6 +15,7 @@ src/alarm.c - Implements a mechanism for alarms, setting a flag after a delay.
 /* Some per-process state */
 static volatile UINTVAL  alarm_serial = 0;
 static volatile FLOATVAL alarm_set_to = 0.0;
+static volatile HANDLE   timer_queue = NULL;
 
 /* This file relies on POSIX. Probably need two other versions of it:
  *  one for Windows and one for platforms with no signals or threads. */
@@ -44,15 +45,17 @@ VOID CALLBACK Parrot_alarm_callback(PVOID lparam, BOOLEAN TimerOrWaitFired);
 void
 Parrot_alarm_init(PARROT_INTERP, ARGIN(PMC * const scheduler))
 {
-    Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
-    sched->alarm_data = CreateTimerQueue();
+    //Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
+    //sched->alarm_data = CreateTimerQueue();
+    timer_queue = CreateTimerQueue();
 }
 
 void
 Parrot_alarm_destroy(PARROT_INTERP, ARGIN(PMC * const scheduler))
 {
-    Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
-    DeleteTimerQueue(sched->alarm_data);
+    //Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
+    //DeleteTimerQueue(sched->alarm_data);
+    DeleteTimerQueue(timer_queue);
 }
 
 
@@ -155,11 +158,7 @@ void
 Parrot_alarm_now(void)
 {
     ASSERT_ARGS(Parrot_alarm_now)
-#ifdef _WIN32
     /* TODO: Implement on Windows */
-#else
-    kill(getpid(), SIGALRM);
-#endif
 }
 
 /*
