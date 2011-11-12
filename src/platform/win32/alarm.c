@@ -15,7 +15,6 @@ src/alarm.c - Implements a mechanism for alarms, setting a flag after a delay.
 /* Some per-process state */
 static volatile UINTVAL  alarm_serial = 0;
 static volatile FLOATVAL alarm_set_to = 0.0;
-static volatile HANDLE   timer_queue = NULL;
 
 /* This file relies on POSIX. Probably need two other versions of it:
  *  one for Windows and one for platforms with no signals or threads. */
@@ -45,19 +44,12 @@ VOID CALLBACK Parrot_alarm_callback(PVOID lparam, BOOLEAN TimerOrWaitFired);
 void
 Parrot_alarm_init(PARROT_INTERP, ARGIN(PMC * const scheduler))
 {
-    //Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
-    //sched->alarm_data = CreateTimerQueue();
-    timer_queue = CreateTimerQueue();
 }
 
 void
 Parrot_alarm_destroy(PARROT_INTERP, ARGIN(PMC * const scheduler))
 {
-    //Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
-    //DeleteTimerQueue(sched->alarm_data);
-    DeleteTimerQueue(timer_queue);
 }
-
 
 /*
 
@@ -110,10 +102,9 @@ static void
 windows_alarm_set(PARROT_INTERP, FLOATVAL time)
 {
     ASSERT_ARGS(windows_alarm_set)
-    Parrot_Scheduler_attributes * const sched = PARROT_SCHEDULER(scheduler);
     HANDLE hTimer;
     INTVAL ms = ((int)time) * 1000;
-    CreateTimeQueueTimer(&hTimer, sched->alarm_data, (WAITORTIMERCALLBACK)Parrot_alarm_callback, interp, ms, 0, 0);
+    CreateTimerQueueTimer(&hTimer, NULL, (WAITORTIMERCALLBACK)Parrot_alarm_callback, interp, ms, 0, 0);
 
 }
 
@@ -158,7 +149,8 @@ void
 Parrot_alarm_now(void)
 {
     ASSERT_ARGS(Parrot_alarm_now)
-    /* TODO: Implement on Windows */
+    HANDLE hTimer;
+    CreateTimerQueueTimer(&hTimer, NULL, (WAITORTIMERCALLBACK)Parrot_alarm_callback, interp, 0, 0, 0);
 }
 
 /*
