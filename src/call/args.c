@@ -510,6 +510,30 @@ dissect_aggregate_arg(PARROT_INTERP, ARGMOD(PMC *call_object), ARGIN(PMC *aggreg
     }
 }
 
+PARROT_EXPORT
+void
+Parrot_pcc_flatten_hash_argument(PARROT_INTERP, ARGMOD(PMC * ctx), ARGIN(PMC * h), INTVAL overwrite)
+{
+    ASSERT_ARGS(Parrot_pcc_flatten_hash_argument)
+    const Hash * const hash = (Hash *)VTABLE_get_pointer(interp, h);
+
+    if (overwrite) {
+        parrot_hash_iterate(hash, {
+            VTABLE_set_pmc_keyed_str(interp, ctx, (STRING *)_bucket->key,
+                Parrot_hash_value_to_pmc(interp, hash, _bucket->value));
+        });
+    }
+    else {
+        parrot_hash_iterate(hash, {
+            STRING * const key = (STRING *)_bucket->key;
+            if (!VTABLE_exists_keyed_str(interp, ctx, key)) {
+                VTABLE_set_pmc_keyed_str(interp, ctx, (STRING *)_bucket->key,
+                    Parrot_hash_value_to_pmc(interp, hash, _bucket->value));
+            }
+        });
+    }
+}
+
 /*
 
 =item C<void Parrot_pcc_set_call_from_c_args(PARROT_INTERP, PMC *signature,

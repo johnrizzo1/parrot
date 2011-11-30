@@ -385,6 +385,20 @@ inline op invokecc(invar PMC) :flow {
     goto ADDRESS(dest);
 }
 
+inline op invokecc(invar PMC, invar PMC) :flow {
+    PMC      * const sub = $1;
+    opcode_t *dest       = expr NEXT();
+    PMC      * const ctx = $2;
+
+    Parrot_pcc_set_signature(interp, CURRENT_CONTEXT(interp), ctx);
+    Parrot_pcc_set_pc(interp, CURRENT_CONTEXT(interp), dest);
+
+    interp->current_cont = NEED_CONTINUATION;
+    dest                 = VTABLE_invoke(interp, sub, dest);
+
+    goto ADDRESS(dest);
+}
+
 inline op invoke(invar PMC, invar PMC) :flow {
     opcode_t   *dest       = expr NEXT();
     PMC * const p          = $1;
@@ -396,6 +410,22 @@ inline op invoke(invar PMC, invar PMC) :flow {
     if (!PMC_IS_NULL(signature))
         Parrot_pcc_set_object(interp, signature, NULL);
     interp->current_cont   = $2;
+
+    dest = VTABLE_invoke(interp, p, dest);
+    goto ADDRESS(dest);
+}
+
+inline op invoke(invar PMC, invar PMC, invar PMC) :flow {
+    opcode_t   *dest = expr NEXT();
+    PMC * const p    = $1;
+    PMC * const ctx  = $2;
+
+    Parrot_pcc_set_signature(interp, CURRENT_CONTEXT(interp), ctx);
+    Parrot_pcc_set_pc(interp, CURRENT_CONTEXT(interp), dest);
+
+    if (!PMC_IS_NULL(ctx))
+        Parrot_pcc_set_object(interp, ctx, NULL);
+    interp->current_cont   = $3;
 
     dest = VTABLE_invoke(interp, p, dest);
     goto ADDRESS(dest);
@@ -575,6 +605,50 @@ inline op result_info(out PMC) {
 }
 
 =back
+
+=head2 PCC Simplification Ops
+
+=over 4
+
+=item B<new_call_context>(out PMC)
+
+Create a new CallContext PMC for use in a call
+
+=item B<get_call_context>(out PMC)
+
+Get the currently CallContext object
+
+=back
+
+=cut
+
+inline op new_call_context(out PMC) {
+    $1 = Parrot_pmc_new(interp, enum_class_CallContext);
+}
+
+inline op get_call_context(out PMC) {
+    $1 = CURRENT_CONTEXT(interp);
+}
+
+inline op flatten_array_arg(invar PMC, invar PMC, in INT) {
+    PMC * const ctx = $1;
+    PMC * const array = $2;
+    const INTVAL start_idx = $3;
+    INTVAL ctx_idx = start_idx;
+    INTVAL array_idx;
+    const INTVAL array_elements = VTABLE_elements(interp, array);
+    for (array_idx = 0; array_idx < array_elements; array_idx++, ctx_idx++) {
+        PMC * const value = VTABLE_get_pmc_keyed_int(interp, array, array_idx);
+        VTABLE_set_pmc_keyed_int(interp, ctx, ctx_idx, value);
+    }
+}
+
+inline op flatten_hash_arg(invar PMC, invar PMC, in INT) {
+    Parrot_pcc_flatten_hash_argument(interp, $1, $2, $3);
+}
+
+
+###############################################################################
 
 =head2 Address manipulation
 
@@ -1168,8 +1242,6 @@ op getinterp(out PMC) {
 }
 
 #######################################
-
-
 
 =back
 

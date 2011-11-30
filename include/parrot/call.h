@@ -221,6 +221,16 @@ void Parrot_pcc_fill_params_from_varargs(PARROT_INTERP,
         FUNC_MODIFIES(*args);
 
 PARROT_EXPORT
+void Parrot_pcc_flatten_hash_argument(PARROT_INTERP,
+    ARGMOD(PMC * ctx),
+    ARGIN(PMC * h),
+    INTVAL overwrite)
+        __attribute__nonnull__(1)
+        __attribute__nonnull__(2)
+        __attribute__nonnull__(3)
+        FUNC_MODIFIES(* ctx);
+
+PARROT_EXPORT
 void Parrot_pcc_set_call_from_c_args(PARROT_INTERP,
     ARGIN(PMC *signature),
     ARGIN(const char *sig),
@@ -304,6 +314,11 @@ void Parrot_pcc_split_signature_string(
        PARROT_ASSERT_ARG(interp) \
     , PARROT_ASSERT_ARG(signature) \
     , PARROT_ASSERT_ARG(args))
+#define ASSERT_ARGS_Parrot_pcc_flatten_hash_argument \
+     __attribute__unused__ int _ASSERT_ARGS_CHECK = (\
+       PARROT_ASSERT_ARG(interp) \
+    , PARROT_ASSERT_ARG(ctx) \
+    , PARROT_ASSERT_ARG(h))
 #define ASSERT_ARGS_Parrot_pcc_set_call_from_c_args \
      __attribute__unused__ int _ASSERT_ARGS_CHECK = (\
        PARROT_ASSERT_ARG(interp) \
