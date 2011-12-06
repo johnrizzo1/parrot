@@ -72,19 +72,18 @@ extern op_lib_t core_op_lib;
 
 
 
-/* Chandon TODO: Should not have private header here */
 #include "parrot/scheduler_private.h"
 #include "pmc/pmc_task.h"
 
 
 
-INTVAL core_numops = 1111;
+INTVAL core_numops = 1113;
 
 /*
 ** Op Function Table:
 */
 
-static op_func_t core_op_func_table[1111] = {
+static op_func_t core_op_func_table[1113] = {
   Parrot_end,                                        /*      0 */
   Parrot_noop,                                       /*      1 */
   Parrot_check_events,                               /*      2 */
@@ -617,584 +616,586 @@ static op_func_t core_op_func_table[1111] = {
   Parrot_sub_p_p_n,                                  /*    529 */
   Parrot_sub_p_p_nc,                                 /*    530 */
   Parrot_sqrt_n_n,                                   /*    531 */
-  Parrot_callmethodcc_p_s,                           /*    532 */
-  Parrot_callmethodcc_p_sc,                          /*    533 */
-  Parrot_callmethodcc_p_p,                           /*    534 */
-  Parrot_callmethod_p_s_p,                           /*    535 */
-  Parrot_callmethod_p_sc_p,                          /*    536 */
-  Parrot_callmethod_p_p_p,                           /*    537 */
-  Parrot_tailcallmethod_p_s,                         /*    538 */
-  Parrot_tailcallmethod_p_sc,                        /*    539 */
-  Parrot_tailcallmethod_p_p,                         /*    540 */
-  Parrot_addmethod_p_s_p,                            /*    541 */
-  Parrot_addmethod_p_sc_p,                           /*    542 */
-  Parrot_can_i_p_s,                                  /*    543 */
-  Parrot_can_i_p_sc,                                 /*    544 */
-  Parrot_does_i_p_s,                                 /*    545 */
-  Parrot_does_i_p_sc,                                /*    546 */
-  Parrot_does_i_p_p,                                 /*    547 */
-  Parrot_does_i_p_pc,                                /*    548 */
-  Parrot_isa_i_p_s,                                  /*    549 */
-  Parrot_isa_i_p_sc,                                 /*    550 */
-  Parrot_isa_i_p_p,                                  /*    551 */
-  Parrot_isa_i_p_pc,                                 /*    552 */
-  Parrot_newclass_p_s,                               /*    553 */
-  Parrot_newclass_p_sc,                              /*    554 */
-  Parrot_newclass_p_p,                               /*    555 */
-  Parrot_newclass_p_pc,                              /*    556 */
-  Parrot_subclass_p_p,                               /*    557 */
-  Parrot_subclass_p_pc,                              /*    558 */
-  Parrot_subclass_p_p_s,                             /*    559 */
-  Parrot_subclass_p_pc_s,                            /*    560 */
-  Parrot_subclass_p_p_sc,                            /*    561 */
-  Parrot_subclass_p_pc_sc,                           /*    562 */
-  Parrot_subclass_p_p_p,                             /*    563 */
-  Parrot_subclass_p_pc_p,                            /*    564 */
-  Parrot_subclass_p_p_pc,                            /*    565 */
-  Parrot_subclass_p_pc_pc,                           /*    566 */
-  Parrot_subclass_p_s,                               /*    567 */
-  Parrot_subclass_p_sc,                              /*    568 */
-  Parrot_subclass_p_s_s,                             /*    569 */
-  Parrot_subclass_p_sc_s,                            /*    570 */
-  Parrot_subclass_p_s_sc,                            /*    571 */
-  Parrot_subclass_p_sc_sc,                           /*    572 */
-  Parrot_subclass_p_s_p,                             /*    573 */
-  Parrot_subclass_p_sc_p,                            /*    574 */
-  Parrot_subclass_p_s_pc,                            /*    575 */
-  Parrot_subclass_p_sc_pc,                           /*    576 */
-  Parrot_get_class_p_s,                              /*    577 */
-  Parrot_get_class_p_sc,                             /*    578 */
-  Parrot_get_class_p_p,                              /*    579 */
-  Parrot_get_class_p_pc,                             /*    580 */
-  Parrot_class_p_p,                                  /*    581 */
-  Parrot_addparent_p_p,                              /*    582 */
-  Parrot_removeparent_p_p,                           /*    583 */
-  Parrot_addrole_p_p,                                /*    584 */
-  Parrot_addattribute_p_s,                           /*    585 */
-  Parrot_addattribute_p_sc,                          /*    586 */
-  Parrot_removeattribute_p_s,                        /*    587 */
-  Parrot_removeattribute_p_sc,                       /*    588 */
-  Parrot_getattribute_p_p_s,                         /*    589 */
-  Parrot_getattribute_p_p_sc,                        /*    590 */
-  Parrot_getattribute_p_p_p_s,                       /*    591 */
-  Parrot_getattribute_p_p_pc_s,                      /*    592 */
-  Parrot_getattribute_p_p_p_sc,                      /*    593 */
-  Parrot_getattribute_p_p_pc_sc,                     /*    594 */
-  Parrot_setattribute_p_s_p,                         /*    595 */
-  Parrot_setattribute_p_sc_p,                        /*    596 */
-  Parrot_setattribute_p_p_s_p,                       /*    597 */
-  Parrot_setattribute_p_pc_s_p,                      /*    598 */
-  Parrot_setattribute_p_p_sc_p,                      /*    599 */
-  Parrot_setattribute_p_pc_sc_p,                     /*    600 */
-  Parrot_inspect_p_p,                                /*    601 */
-  Parrot_inspect_p_pc,                               /*    602 */
-  Parrot_inspect_p_p_s,                              /*    603 */
-  Parrot_inspect_p_pc_s,                             /*    604 */
-  Parrot_inspect_p_p_sc,                             /*    605 */
-  Parrot_inspect_p_pc_sc,                            /*    606 */
-  Parrot_new_p_s,                                    /*    607 */
-  Parrot_new_p_sc,                                   /*    608 */
-  Parrot_new_p_s_p,                                  /*    609 */
-  Parrot_new_p_sc_p,                                 /*    610 */
-  Parrot_new_p_s_pc,                                 /*    611 */
-  Parrot_new_p_sc_pc,                                /*    612 */
-  Parrot_new_p_p,                                    /*    613 */
-  Parrot_new_p_pc,                                   /*    614 */
-  Parrot_new_p_p_p,                                  /*    615 */
-  Parrot_new_p_pc_p,                                 /*    616 */
-  Parrot_new_p_p_pc,                                 /*    617 */
-  Parrot_new_p_pc_pc,                                /*    618 */
-  Parrot_root_new_p_p,                               /*    619 */
-  Parrot_root_new_p_pc,                              /*    620 */
-  Parrot_root_new_p_p_p,                             /*    621 */
-  Parrot_root_new_p_pc_p,                            /*    622 */
-  Parrot_root_new_p_p_pc,                            /*    623 */
-  Parrot_root_new_p_pc_pc,                           /*    624 */
-  Parrot_typeof_s_p,                                 /*    625 */
-  Parrot_typeof_p_p,                                 /*    626 */
-  Parrot_get_repr_s_p,                               /*    627 */
-  Parrot_find_method_p_p_s,                          /*    628 */
-  Parrot_find_method_p_p_sc,                         /*    629 */
-  Parrot_defined_i_p,                                /*    630 */
-  Parrot_defined_i_p_ki,                             /*    631 */
-  Parrot_defined_i_p_kic,                            /*    632 */
-  Parrot_defined_i_p_k,                              /*    633 */
-  Parrot_defined_i_p_kc,                             /*    634 */
-  Parrot_exists_i_p_ki,                              /*    635 */
-  Parrot_exists_i_p_kic,                             /*    636 */
-  Parrot_exists_i_p_k,                               /*    637 */
-  Parrot_exists_i_p_kc,                              /*    638 */
-  Parrot_delete_p_k,                                 /*    639 */
-  Parrot_delete_p_kc,                                /*    640 */
-  Parrot_delete_p_ki,                                /*    641 */
-  Parrot_delete_p_kic,                               /*    642 */
-  Parrot_elements_i_p,                               /*    643 */
-  Parrot_push_p_i,                                   /*    644 */
-  Parrot_push_p_ic,                                  /*    645 */
-  Parrot_push_p_n,                                   /*    646 */
-  Parrot_push_p_nc,                                  /*    647 */
-  Parrot_push_p_s,                                   /*    648 */
-  Parrot_push_p_sc,                                  /*    649 */
-  Parrot_push_p_p,                                   /*    650 */
-  Parrot_pop_i_p,                                    /*    651 */
-  Parrot_pop_n_p,                                    /*    652 */
-  Parrot_pop_s_p,                                    /*    653 */
-  Parrot_pop_p_p,                                    /*    654 */
-  Parrot_unshift_p_i,                                /*    655 */
-  Parrot_unshift_p_ic,                               /*    656 */
-  Parrot_unshift_p_n,                                /*    657 */
-  Parrot_unshift_p_nc,                               /*    658 */
-  Parrot_unshift_p_s,                                /*    659 */
-  Parrot_unshift_p_sc,                               /*    660 */
-  Parrot_unshift_p_p,                                /*    661 */
-  Parrot_shift_i_p,                                  /*    662 */
-  Parrot_shift_n_p,                                  /*    663 */
-  Parrot_shift_s_p,                                  /*    664 */
-  Parrot_shift_p_p,                                  /*    665 */
-  Parrot_splice_p_p_i_i,                             /*    666 */
-  Parrot_splice_p_p_ic_i,                            /*    667 */
-  Parrot_splice_p_p_i_ic,                            /*    668 */
-  Parrot_splice_p_p_ic_ic,                           /*    669 */
-  Parrot_setprop_p_s_p,                              /*    670 */
-  Parrot_setprop_p_sc_p,                             /*    671 */
-  Parrot_getprop_p_s_p,                              /*    672 */
-  Parrot_getprop_p_sc_p,                             /*    673 */
-  Parrot_delprop_p_s,                                /*    674 */
-  Parrot_delprop_p_sc,                               /*    675 */
-  Parrot_prophash_p_p,                               /*    676 */
-  Parrot_freeze_s_p,                                 /*    677 */
-  Parrot_thaw_p_s,                                   /*    678 */
-  Parrot_thaw_p_sc,                                  /*    679 */
-  Parrot_add_multi_s_s_p,                            /*    680 */
-  Parrot_add_multi_sc_s_p,                           /*    681 */
-  Parrot_add_multi_s_sc_p,                           /*    682 */
-  Parrot_add_multi_sc_sc_p,                          /*    683 */
-  Parrot_find_multi_p_s_s,                           /*    684 */
-  Parrot_find_multi_p_sc_s,                          /*    685 */
-  Parrot_find_multi_p_s_sc,                          /*    686 */
-  Parrot_find_multi_p_sc_sc,                         /*    687 */
-  Parrot_register_p,                                 /*    688 */
-  Parrot_unregister_p,                               /*    689 */
-  Parrot_box_p_i,                                    /*    690 */
-  Parrot_box_p_ic,                                   /*    691 */
-  Parrot_box_p_n,                                    /*    692 */
-  Parrot_box_p_nc,                                   /*    693 */
-  Parrot_box_p_s,                                    /*    694 */
-  Parrot_box_p_sc,                                   /*    695 */
-  Parrot_iter_p_p,                                   /*    696 */
-  Parrot_morph_p_p,                                  /*    697 */
-  Parrot_morph_p_pc,                                 /*    698 */
-  Parrot_clone_s_s,                                  /*    699 */
-  Parrot_clone_s_sc,                                 /*    700 */
-  Parrot_set_i_i,                                    /*    701 */
-  Parrot_set_i_ic,                                   /*    702 */
-  Parrot_set_i_n,                                    /*    703 */
-  Parrot_set_i_nc,                                   /*    704 */
-  Parrot_set_i_s,                                    /*    705 */
-  Parrot_set_i_sc,                                   /*    706 */
-  Parrot_set_n_n,                                    /*    707 */
-  Parrot_set_n_nc,                                   /*    708 */
-  Parrot_set_n_i,                                    /*    709 */
-  Parrot_set_n_ic,                                   /*    710 */
-  Parrot_set_n_s,                                    /*    711 */
-  Parrot_set_n_sc,                                   /*    712 */
-  Parrot_set_n_p,                                    /*    713 */
-  Parrot_set_s_p,                                    /*    714 */
-  Parrot_set_s_s,                                    /*    715 */
-  Parrot_set_s_sc,                                   /*    716 */
-  Parrot_set_s_i,                                    /*    717 */
-  Parrot_set_s_ic,                                   /*    718 */
-  Parrot_set_s_n,                                    /*    719 */
-  Parrot_set_s_nc,                                   /*    720 */
-  Parrot_set_p_pc,                                   /*    721 */
-  Parrot_set_p_p,                                    /*    722 */
-  Parrot_set_p_i,                                    /*    723 */
-  Parrot_set_p_ic,                                   /*    724 */
-  Parrot_set_p_n,                                    /*    725 */
-  Parrot_set_p_nc,                                   /*    726 */
-  Parrot_set_p_s,                                    /*    727 */
-  Parrot_set_p_sc,                                   /*    728 */
-  Parrot_set_i_p,                                    /*    729 */
-  Parrot_assign_p_p,                                 /*    730 */
-  Parrot_assign_p_i,                                 /*    731 */
-  Parrot_assign_p_ic,                                /*    732 */
-  Parrot_assign_p_n,                                 /*    733 */
-  Parrot_assign_p_nc,                                /*    734 */
-  Parrot_assign_p_s,                                 /*    735 */
-  Parrot_assign_p_sc,                                /*    736 */
-  Parrot_assign_s_s,                                 /*    737 */
-  Parrot_assign_s_sc,                                /*    738 */
-  Parrot_setref_p_p,                                 /*    739 */
-  Parrot_deref_p_p,                                  /*    740 */
-  Parrot_set_p_ki_i,                                 /*    741 */
-  Parrot_set_p_kic_i,                                /*    742 */
-  Parrot_set_p_ki_ic,                                /*    743 */
-  Parrot_set_p_kic_ic,                               /*    744 */
-  Parrot_set_p_ki_n,                                 /*    745 */
-  Parrot_set_p_kic_n,                                /*    746 */
-  Parrot_set_p_ki_nc,                                /*    747 */
-  Parrot_set_p_kic_nc,                               /*    748 */
-  Parrot_set_p_ki_s,                                 /*    749 */
-  Parrot_set_p_kic_s,                                /*    750 */
-  Parrot_set_p_ki_sc,                                /*    751 */
-  Parrot_set_p_kic_sc,                               /*    752 */
-  Parrot_set_p_ki_p,                                 /*    753 */
-  Parrot_set_p_kic_p,                                /*    754 */
-  Parrot_set_i_p_ki,                                 /*    755 */
-  Parrot_set_i_p_kic,                                /*    756 */
-  Parrot_set_n_p_ki,                                 /*    757 */
-  Parrot_set_n_p_kic,                                /*    758 */
-  Parrot_set_s_p_ki,                                 /*    759 */
-  Parrot_set_s_p_kic,                                /*    760 */
-  Parrot_set_p_p_ki,                                 /*    761 */
-  Parrot_set_p_p_kic,                                /*    762 */
-  Parrot_set_p_k_i,                                  /*    763 */
-  Parrot_set_p_kc_i,                                 /*    764 */
-  Parrot_set_p_k_ic,                                 /*    765 */
-  Parrot_set_p_kc_ic,                                /*    766 */
-  Parrot_set_p_k_n,                                  /*    767 */
-  Parrot_set_p_kc_n,                                 /*    768 */
-  Parrot_set_p_k_nc,                                 /*    769 */
-  Parrot_set_p_kc_nc,                                /*    770 */
-  Parrot_set_p_k_s,                                  /*    771 */
-  Parrot_set_p_kc_s,                                 /*    772 */
-  Parrot_set_p_k_sc,                                 /*    773 */
-  Parrot_set_p_kc_sc,                                /*    774 */
-  Parrot_set_p_k_p,                                  /*    775 */
-  Parrot_set_p_kc_p,                                 /*    776 */
-  Parrot_set_i_p_k,                                  /*    777 */
-  Parrot_set_i_p_kc,                                 /*    778 */
-  Parrot_set_n_p_k,                                  /*    779 */
-  Parrot_set_n_p_kc,                                 /*    780 */
-  Parrot_set_s_p_k,                                  /*    781 */
-  Parrot_set_s_p_kc,                                 /*    782 */
-  Parrot_set_p_p_k,                                  /*    783 */
-  Parrot_set_p_p_kc,                                 /*    784 */
-  Parrot_clone_p_p,                                  /*    785 */
-  Parrot_clone_p_p_p,                                /*    786 */
-  Parrot_clone_p_p_pc,                               /*    787 */
-  Parrot_copy_p_p,                                   /*    788 */
-  Parrot_null_s,                                     /*    789 */
-  Parrot_null_i,                                     /*    790 */
-  Parrot_null_p,                                     /*    791 */
-  Parrot_null_n,                                     /*    792 */
-  Parrot_ord_i_s,                                    /*    793 */
-  Parrot_ord_i_sc,                                   /*    794 */
-  Parrot_ord_i_s_i,                                  /*    795 */
-  Parrot_ord_i_sc_i,                                 /*    796 */
-  Parrot_ord_i_s_ic,                                 /*    797 */
-  Parrot_ord_i_sc_ic,                                /*    798 */
-  Parrot_chr_s_i,                                    /*    799 */
-  Parrot_chr_s_ic,                                   /*    800 */
-  Parrot_chopn_s_s_i,                                /*    801 */
-  Parrot_chopn_s_sc_i,                               /*    802 */
-  Parrot_chopn_s_s_ic,                               /*    803 */
-  Parrot_chopn_s_sc_ic,                              /*    804 */
-  Parrot_concat_p_p,                                 /*    805 */
-  Parrot_concat_p_s,                                 /*    806 */
-  Parrot_concat_p_sc,                                /*    807 */
-  Parrot_concat_s_s_s,                               /*    808 */
-  Parrot_concat_s_sc_s,                              /*    809 */
-  Parrot_concat_s_s_sc,                              /*    810 */
-  Parrot_concat_p_p_s,                               /*    811 */
-  Parrot_concat_p_p_sc,                              /*    812 */
-  Parrot_concat_p_p_p,                               /*    813 */
-  Parrot_repeat_s_s_i,                               /*    814 */
-  Parrot_repeat_s_sc_i,                              /*    815 */
-  Parrot_repeat_s_s_ic,                              /*    816 */
-  Parrot_repeat_s_sc_ic,                             /*    817 */
-  Parrot_repeat_p_p_i,                               /*    818 */
-  Parrot_repeat_p_p_ic,                              /*    819 */
-  Parrot_repeat_p_p_p,                               /*    820 */
-  Parrot_repeat_p_i,                                 /*    821 */
-  Parrot_repeat_p_ic,                                /*    822 */
-  Parrot_repeat_p_p,                                 /*    823 */
-  Parrot_length_i_s,                                 /*    824 */
-  Parrot_length_i_sc,                                /*    825 */
-  Parrot_bytelength_i_s,                             /*    826 */
-  Parrot_bytelength_i_sc,                            /*    827 */
-  Parrot_pin_s,                                      /*    828 */
-  Parrot_unpin_s,                                    /*    829 */
-  Parrot_substr_s_s_i,                               /*    830 */
-  Parrot_substr_s_sc_i,                              /*    831 */
-  Parrot_substr_s_s_ic,                              /*    832 */
-  Parrot_substr_s_sc_ic,                             /*    833 */
-  Parrot_substr_s_s_i_i,                             /*    834 */
-  Parrot_substr_s_sc_i_i,                            /*    835 */
-  Parrot_substr_s_s_ic_i,                            /*    836 */
-  Parrot_substr_s_sc_ic_i,                           /*    837 */
-  Parrot_substr_s_s_i_ic,                            /*    838 */
-  Parrot_substr_s_sc_i_ic,                           /*    839 */
-  Parrot_substr_s_s_ic_ic,                           /*    840 */
-  Parrot_substr_s_sc_ic_ic,                          /*    841 */
-  Parrot_substr_s_p_i_i,                             /*    842 */
-  Parrot_substr_s_p_ic_i,                            /*    843 */
-  Parrot_substr_s_p_i_ic,                            /*    844 */
-  Parrot_substr_s_p_ic_ic,                           /*    845 */
-  Parrot_replace_s_s_i_i_s,                          /*    846 */
-  Parrot_replace_s_sc_i_i_s,                         /*    847 */
-  Parrot_replace_s_s_ic_i_s,                         /*    848 */
-  Parrot_replace_s_sc_ic_i_s,                        /*    849 */
-  Parrot_replace_s_s_i_ic_s,                         /*    850 */
-  Parrot_replace_s_sc_i_ic_s,                        /*    851 */
-  Parrot_replace_s_s_ic_ic_s,                        /*    852 */
-  Parrot_replace_s_sc_ic_ic_s,                       /*    853 */
-  Parrot_replace_s_s_i_i_sc,                         /*    854 */
-  Parrot_replace_s_sc_i_i_sc,                        /*    855 */
-  Parrot_replace_s_s_ic_i_sc,                        /*    856 */
-  Parrot_replace_s_sc_ic_i_sc,                       /*    857 */
-  Parrot_replace_s_s_i_ic_sc,                        /*    858 */
-  Parrot_replace_s_sc_i_ic_sc,                       /*    859 */
-  Parrot_replace_s_s_ic_ic_sc,                       /*    860 */
-  Parrot_replace_s_sc_ic_ic_sc,                      /*    861 */
-  Parrot_index_i_s_s,                                /*    862 */
-  Parrot_index_i_sc_s,                               /*    863 */
-  Parrot_index_i_s_sc,                               /*    864 */
-  Parrot_index_i_sc_sc,                              /*    865 */
-  Parrot_index_i_s_s_i,                              /*    866 */
-  Parrot_index_i_sc_s_i,                             /*    867 */
-  Parrot_index_i_s_sc_i,                             /*    868 */
-  Parrot_index_i_sc_sc_i,                            /*    869 */
-  Parrot_index_i_s_s_ic,                             /*    870 */
-  Parrot_index_i_sc_s_ic,                            /*    871 */
-  Parrot_index_i_s_sc_ic,                            /*    872 */
-  Parrot_index_i_sc_sc_ic,                           /*    873 */
-  Parrot_sprintf_s_s_p,                              /*    874 */
-  Parrot_sprintf_s_sc_p,                             /*    875 */
-  Parrot_sprintf_p_p_p,                              /*    876 */
-  Parrot_new_s,                                      /*    877 */
-  Parrot_new_s_i,                                    /*    878 */
-  Parrot_new_s_ic,                                   /*    879 */
-  Parrot_stringinfo_i_s_i,                           /*    880 */
-  Parrot_stringinfo_i_sc_i,                          /*    881 */
-  Parrot_stringinfo_i_s_ic,                          /*    882 */
-  Parrot_stringinfo_i_sc_ic,                         /*    883 */
-  Parrot_upcase_s_s,                                 /*    884 */
-  Parrot_upcase_s_sc,                                /*    885 */
-  Parrot_downcase_s_s,                               /*    886 */
-  Parrot_downcase_s_sc,                              /*    887 */
-  Parrot_titlecase_s_s,                              /*    888 */
-  Parrot_titlecase_s_sc,                             /*    889 */
-  Parrot_join_s_s_p,                                 /*    890 */
-  Parrot_join_s_sc_p,                                /*    891 */
-  Parrot_split_p_s_s,                                /*    892 */
-  Parrot_split_p_sc_s,                               /*    893 */
-  Parrot_split_p_s_sc,                               /*    894 */
-  Parrot_split_p_sc_sc,                              /*    895 */
-  Parrot_encoding_i_s,                               /*    896 */
-  Parrot_encoding_i_sc,                              /*    897 */
-  Parrot_encodingname_s_i,                           /*    898 */
-  Parrot_encodingname_s_ic,                          /*    899 */
-  Parrot_find_encoding_i_s,                          /*    900 */
-  Parrot_find_encoding_i_sc,                         /*    901 */
-  Parrot_trans_encoding_s_s_i,                       /*    902 */
-  Parrot_trans_encoding_s_sc_i,                      /*    903 */
-  Parrot_trans_encoding_s_s_ic,                      /*    904 */
-  Parrot_trans_encoding_s_sc_ic,                     /*    905 */
-  Parrot_is_cclass_i_i_s_i,                          /*    906 */
-  Parrot_is_cclass_i_ic_s_i,                         /*    907 */
-  Parrot_is_cclass_i_i_sc_i,                         /*    908 */
-  Parrot_is_cclass_i_ic_sc_i,                        /*    909 */
-  Parrot_is_cclass_i_i_s_ic,                         /*    910 */
-  Parrot_is_cclass_i_ic_s_ic,                        /*    911 */
-  Parrot_is_cclass_i_i_sc_ic,                        /*    912 */
-  Parrot_is_cclass_i_ic_sc_ic,                       /*    913 */
-  Parrot_find_cclass_i_i_s_i_i,                      /*    914 */
-  Parrot_find_cclass_i_ic_s_i_i,                     /*    915 */
-  Parrot_find_cclass_i_i_sc_i_i,                     /*    916 */
-  Parrot_find_cclass_i_ic_sc_i_i,                    /*    917 */
-  Parrot_find_cclass_i_i_s_ic_i,                     /*    918 */
-  Parrot_find_cclass_i_ic_s_ic_i,                    /*    919 */
-  Parrot_find_cclass_i_i_sc_ic_i,                    /*    920 */
-  Parrot_find_cclass_i_ic_sc_ic_i,                   /*    921 */
-  Parrot_find_cclass_i_i_s_i_ic,                     /*    922 */
-  Parrot_find_cclass_i_ic_s_i_ic,                    /*    923 */
-  Parrot_find_cclass_i_i_sc_i_ic,                    /*    924 */
-  Parrot_find_cclass_i_ic_sc_i_ic,                   /*    925 */
-  Parrot_find_cclass_i_i_s_ic_ic,                    /*    926 */
-  Parrot_find_cclass_i_ic_s_ic_ic,                   /*    927 */
-  Parrot_find_cclass_i_i_sc_ic_ic,                   /*    928 */
-  Parrot_find_cclass_i_ic_sc_ic_ic,                  /*    929 */
-  Parrot_find_not_cclass_i_i_s_i_i,                  /*    930 */
-  Parrot_find_not_cclass_i_ic_s_i_i,                 /*    931 */
-  Parrot_find_not_cclass_i_i_sc_i_i,                 /*    932 */
-  Parrot_find_not_cclass_i_ic_sc_i_i,                /*    933 */
-  Parrot_find_not_cclass_i_i_s_ic_i,                 /*    934 */
-  Parrot_find_not_cclass_i_ic_s_ic_i,                /*    935 */
-  Parrot_find_not_cclass_i_i_sc_ic_i,                /*    936 */
-  Parrot_find_not_cclass_i_ic_sc_ic_i,               /*    937 */
-  Parrot_find_not_cclass_i_i_s_i_ic,                 /*    938 */
-  Parrot_find_not_cclass_i_ic_s_i_ic,                /*    939 */
-  Parrot_find_not_cclass_i_i_sc_i_ic,                /*    940 */
-  Parrot_find_not_cclass_i_ic_sc_i_ic,               /*    941 */
-  Parrot_find_not_cclass_i_i_s_ic_ic,                /*    942 */
-  Parrot_find_not_cclass_i_ic_s_ic_ic,               /*    943 */
-  Parrot_find_not_cclass_i_i_sc_ic_ic,               /*    944 */
-  Parrot_find_not_cclass_i_ic_sc_ic_ic,              /*    945 */
-  Parrot_escape_s_s,                                 /*    946 */
-  Parrot_compose_s_s,                                /*    947 */
-  Parrot_compose_s_sc,                               /*    948 */
-  Parrot_find_codepoint_i_s,                         /*    949 */
-  Parrot_find_codepoint_i_sc,                        /*    950 */
-  Parrot_spawnw_i_s,                                 /*    951 */
-  Parrot_spawnw_i_sc,                                /*    952 */
-  Parrot_spawnw_i_p,                                 /*    953 */
-  Parrot_err_i,                                      /*    954 */
-  Parrot_err_s,                                      /*    955 */
-  Parrot_err_s_i,                                    /*    956 */
-  Parrot_err_s_ic,                                   /*    957 */
-  Parrot_time_i,                                     /*    958 */
-  Parrot_time_n,                                     /*    959 */
-  Parrot_sleep_i,                                    /*    960 */
-  Parrot_sleep_ic,                                   /*    961 */
-  Parrot_sleep_n,                                    /*    962 */
-  Parrot_sleep_nc,                                   /*    963 */
-  Parrot_store_lex_s_p,                              /*    964 */
-  Parrot_store_lex_sc_p,                             /*    965 */
-  Parrot_store_lex_s_s,                              /*    966 */
-  Parrot_store_lex_sc_s,                             /*    967 */
-  Parrot_store_lex_s_sc,                             /*    968 */
-  Parrot_store_lex_sc_sc,                            /*    969 */
-  Parrot_store_lex_s_i,                              /*    970 */
-  Parrot_store_lex_sc_i,                             /*    971 */
-  Parrot_store_lex_s_ic,                             /*    972 */
-  Parrot_store_lex_sc_ic,                            /*    973 */
-  Parrot_store_lex_s_n,                              /*    974 */
-  Parrot_store_lex_sc_n,                             /*    975 */
-  Parrot_store_lex_s_nc,                             /*    976 */
-  Parrot_store_lex_sc_nc,                            /*    977 */
-  Parrot_store_dynamic_lex_s_p,                      /*    978 */
-  Parrot_store_dynamic_lex_sc_p,                     /*    979 */
-  Parrot_find_lex_p_s,                               /*    980 */
-  Parrot_find_lex_p_sc,                              /*    981 */
-  Parrot_find_lex_s_s,                               /*    982 */
-  Parrot_find_lex_s_sc,                              /*    983 */
-  Parrot_find_lex_i_s,                               /*    984 */
-  Parrot_find_lex_i_sc,                              /*    985 */
-  Parrot_find_lex_n_s,                               /*    986 */
-  Parrot_find_lex_n_sc,                              /*    987 */
-  Parrot_find_dynamic_lex_p_s,                       /*    988 */
-  Parrot_find_dynamic_lex_p_sc,                      /*    989 */
-  Parrot_find_caller_lex_p_s,                        /*    990 */
-  Parrot_find_caller_lex_p_sc,                       /*    991 */
-  Parrot_get_namespace_p,                            /*    992 */
-  Parrot_get_namespace_p_p,                          /*    993 */
-  Parrot_get_namespace_p_pc,                         /*    994 */
-  Parrot_get_hll_namespace_p,                        /*    995 */
-  Parrot_get_hll_namespace_p_p,                      /*    996 */
-  Parrot_get_hll_namespace_p_pc,                     /*    997 */
-  Parrot_get_root_namespace_p,                       /*    998 */
-  Parrot_get_root_namespace_p_p,                     /*    999 */
-  Parrot_get_root_namespace_p_pc,                    /*   1000 */
-  Parrot_get_global_p_s,                             /*   1001 */
-  Parrot_get_global_p_sc,                            /*   1002 */
-  Parrot_get_global_p_p_s,                           /*   1003 */
-  Parrot_get_global_p_pc_s,                          /*   1004 */
-  Parrot_get_global_p_p_sc,                          /*   1005 */
-  Parrot_get_global_p_pc_sc,                         /*   1006 */
-  Parrot_get_hll_global_p_s,                         /*   1007 */
-  Parrot_get_hll_global_p_sc,                        /*   1008 */
-  Parrot_get_hll_global_p_p_s,                       /*   1009 */
-  Parrot_get_hll_global_p_pc_s,                      /*   1010 */
-  Parrot_get_hll_global_p_p_sc,                      /*   1011 */
-  Parrot_get_hll_global_p_pc_sc,                     /*   1012 */
-  Parrot_get_root_global_p_s,                        /*   1013 */
-  Parrot_get_root_global_p_sc,                       /*   1014 */
-  Parrot_get_root_global_p_p_s,                      /*   1015 */
-  Parrot_get_root_global_p_pc_s,                     /*   1016 */
-  Parrot_get_root_global_p_p_sc,                     /*   1017 */
-  Parrot_get_root_global_p_pc_sc,                    /*   1018 */
-  Parrot_set_global_s_p,                             /*   1019 */
-  Parrot_set_global_sc_p,                            /*   1020 */
-  Parrot_set_global_p_s_p,                           /*   1021 */
-  Parrot_set_global_pc_s_p,                          /*   1022 */
-  Parrot_set_global_p_sc_p,                          /*   1023 */
-  Parrot_set_global_pc_sc_p,                         /*   1024 */
-  Parrot_set_hll_global_s_p,                         /*   1025 */
-  Parrot_set_hll_global_sc_p,                        /*   1026 */
-  Parrot_set_hll_global_p_s_p,                       /*   1027 */
-  Parrot_set_hll_global_pc_s_p,                      /*   1028 */
-  Parrot_set_hll_global_p_sc_p,                      /*   1029 */
-  Parrot_set_hll_global_pc_sc_p,                     /*   1030 */
-  Parrot_set_root_global_s_p,                        /*   1031 */
-  Parrot_set_root_global_sc_p,                       /*   1032 */
-  Parrot_set_root_global_p_s_p,                      /*   1033 */
-  Parrot_set_root_global_pc_s_p,                     /*   1034 */
-  Parrot_set_root_global_p_sc_p,                     /*   1035 */
-  Parrot_set_root_global_pc_sc_p,                    /*   1036 */
-  Parrot_find_name_p_s,                              /*   1037 */
-  Parrot_find_name_p_sc,                             /*   1038 */
-  Parrot_find_sub_not_null_p_s,                      /*   1039 */
-  Parrot_find_sub_not_null_p_sc,                     /*   1040 */
-  Parrot_trap,                                       /*   1041 */
-  Parrot_set_label_p_ic,                             /*   1042 */
-  Parrot_get_label_i_p,                              /*   1043 */
-  Parrot_get_id_i_p,                                 /*   1044 */
-  Parrot_get_id_i_pc,                                /*   1045 */
-  Parrot_fetch_p_p_p_p,                              /*   1046 */
-  Parrot_fetch_p_pc_p_p,                             /*   1047 */
-  Parrot_fetch_p_p_pc_p,                             /*   1048 */
-  Parrot_fetch_p_pc_pc_p,                            /*   1049 */
-  Parrot_fetch_p_p_p_pc,                             /*   1050 */
-  Parrot_fetch_p_pc_p_pc,                            /*   1051 */
-  Parrot_fetch_p_p_pc_pc,                            /*   1052 */
-  Parrot_fetch_p_pc_pc_pc,                           /*   1053 */
-  Parrot_fetch_p_p_i_p,                              /*   1054 */
-  Parrot_fetch_p_pc_i_p,                             /*   1055 */
-  Parrot_fetch_p_p_ic_p,                             /*   1056 */
-  Parrot_fetch_p_pc_ic_p,                            /*   1057 */
-  Parrot_fetch_p_p_i_pc,                             /*   1058 */
-  Parrot_fetch_p_pc_i_pc,                            /*   1059 */
-  Parrot_fetch_p_p_ic_pc,                            /*   1060 */
-  Parrot_fetch_p_pc_ic_pc,                           /*   1061 */
-  Parrot_fetch_p_p_s_p,                              /*   1062 */
-  Parrot_fetch_p_pc_s_p,                             /*   1063 */
-  Parrot_fetch_p_p_sc_p,                             /*   1064 */
-  Parrot_fetch_p_pc_sc_p,                            /*   1065 */
-  Parrot_fetch_p_p_s_pc,                             /*   1066 */
-  Parrot_fetch_p_pc_s_pc,                            /*   1067 */
-  Parrot_fetch_p_p_sc_pc,                            /*   1068 */
-  Parrot_fetch_p_pc_sc_pc,                           /*   1069 */
-  Parrot_vivify_p_p_p_p,                             /*   1070 */
-  Parrot_vivify_p_pc_p_p,                            /*   1071 */
-  Parrot_vivify_p_p_pc_p,                            /*   1072 */
-  Parrot_vivify_p_pc_pc_p,                           /*   1073 */
-  Parrot_vivify_p_p_p_pc,                            /*   1074 */
-  Parrot_vivify_p_pc_p_pc,                           /*   1075 */
-  Parrot_vivify_p_p_pc_pc,                           /*   1076 */
-  Parrot_vivify_p_pc_pc_pc,                          /*   1077 */
-  Parrot_vivify_p_p_i_p,                             /*   1078 */
-  Parrot_vivify_p_pc_i_p,                            /*   1079 */
-  Parrot_vivify_p_p_ic_p,                            /*   1080 */
-  Parrot_vivify_p_pc_ic_p,                           /*   1081 */
-  Parrot_vivify_p_p_i_pc,                            /*   1082 */
-  Parrot_vivify_p_pc_i_pc,                           /*   1083 */
-  Parrot_vivify_p_p_ic_pc,                           /*   1084 */
-  Parrot_vivify_p_pc_ic_pc,                          /*   1085 */
-  Parrot_vivify_p_p_s_p,                             /*   1086 */
-  Parrot_vivify_p_pc_s_p,                            /*   1087 */
-  Parrot_vivify_p_p_sc_p,                            /*   1088 */
-  Parrot_vivify_p_pc_sc_p,                           /*   1089 */
-  Parrot_vivify_p_p_s_pc,                            /*   1090 */
-  Parrot_vivify_p_pc_s_pc,                           /*   1091 */
-  Parrot_vivify_p_p_sc_pc,                           /*   1092 */
-  Parrot_vivify_p_pc_sc_pc,                          /*   1093 */
-  Parrot_new_p_s_i,                                  /*   1094 */
-  Parrot_new_p_sc_i,                                 /*   1095 */
-  Parrot_new_p_s_ic,                                 /*   1096 */
-  Parrot_new_p_sc_ic,                                /*   1097 */
-  Parrot_new_p_p_i,                                  /*   1098 */
-  Parrot_new_p_pc_i,                                 /*   1099 */
-  Parrot_new_p_p_ic,                                 /*   1100 */
-  Parrot_new_p_pc_ic,                                /*   1101 */
-  Parrot_root_new_p_p_i,                             /*   1102 */
-  Parrot_root_new_p_pc_i,                            /*   1103 */
-  Parrot_root_new_p_p_ic,                            /*   1104 */
-  Parrot_root_new_p_pc_ic,                           /*   1105 */
-  Parrot_receive_p,                                  /*   1106 */
-  Parrot_wait_p,                                     /*   1107 */
-  Parrot_wait_pc,                                    /*   1108 */
-  Parrot_pass,                                       /*   1109 */
+  Parrot_is_inf_or_nan_i_n,                          /*    532 */
+  Parrot_is_inf_or_nan_i_nc,                         /*    533 */
+  Parrot_callmethodcc_p_s,                           /*    534 */
+  Parrot_callmethodcc_p_sc,                          /*    535 */
+  Parrot_callmethodcc_p_p,                           /*    536 */
+  Parrot_callmethod_p_s_p,                           /*    537 */
+  Parrot_callmethod_p_sc_p,                          /*    538 */
+  Parrot_callmethod_p_p_p,                           /*    539 */
+  Parrot_tailcallmethod_p_s,                         /*    540 */
+  Parrot_tailcallmethod_p_sc,                        /*    541 */
+  Parrot_tailcallmethod_p_p,                         /*    542 */
+  Parrot_addmethod_p_s_p,                            /*    543 */
+  Parrot_addmethod_p_sc_p,                           /*    544 */
+  Parrot_can_i_p_s,                                  /*    545 */
+  Parrot_can_i_p_sc,                                 /*    546 */
+  Parrot_does_i_p_s,                                 /*    547 */
+  Parrot_does_i_p_sc,                                /*    548 */
+  Parrot_does_i_p_p,                                 /*    549 */
+  Parrot_does_i_p_pc,                                /*    550 */
+  Parrot_isa_i_p_s,                                  /*    551 */
+  Parrot_isa_i_p_sc,                                 /*    552 */
+  Parrot_isa_i_p_p,                                  /*    553 */
+  Parrot_isa_i_p_pc,                                 /*    554 */
+  Parrot_newclass_p_s,                               /*    555 */
+  Parrot_newclass_p_sc,                              /*    556 */
+  Parrot_newclass_p_p,                               /*    557 */
+  Parrot_newclass_p_pc,                              /*    558 */
+  Parrot_subclass_p_p,                               /*    559 */
+  Parrot_subclass_p_pc,                              /*    560 */
+  Parrot_subclass_p_p_s,                             /*    561 */
+  Parrot_subclass_p_pc_s,                            /*    562 */
+  Parrot_subclass_p_p_sc,                            /*    563 */
+  Parrot_subclass_p_pc_sc,                           /*    564 */
+  Parrot_subclass_p_p_p,                             /*    565 */
+  Parrot_subclass_p_pc_p,                            /*    566 */
+  Parrot_subclass_p_p_pc,                            /*    567 */
+  Parrot_subclass_p_pc_pc,                           /*    568 */
+  Parrot_subclass_p_s,                               /*    569 */
+  Parrot_subclass_p_sc,                              /*    570 */
+  Parrot_subclass_p_s_s,                             /*    571 */
+  Parrot_subclass_p_sc_s,                            /*    572 */
+  Parrot_subclass_p_s_sc,                            /*    573 */
+  Parrot_subclass_p_sc_sc,                           /*    574 */
+  Parrot_subclass_p_s_p,                             /*    575 */
+  Parrot_subclass_p_sc_p,                            /*    576 */
+  Parrot_subclass_p_s_pc,                            /*    577 */
+  Parrot_subclass_p_sc_pc,                           /*    578 */
+  Parrot_get_class_p_s,                              /*    579 */
+  Parrot_get_class_p_sc,                             /*    580 */
+  Parrot_get_class_p_p,                              /*    581 */
+  Parrot_get_class_p_pc,                             /*    582 */
+  Parrot_class_p_p,                                  /*    583 */
+  Parrot_addparent_p_p,                              /*    584 */
+  Parrot_removeparent_p_p,                           /*    585 */
+  Parrot_addrole_p_p,                                /*    586 */
+  Parrot_addattribute_p_s,                           /*    587 */
+  Parrot_addattribute_p_sc,                          /*    588 */
+  Parrot_removeattribute_p_s,                        /*    589 */
+  Parrot_removeattribute_p_sc,                       /*    590 */
+  Parrot_getattribute_p_p_s,                         /*    591 */
+  Parrot_getattribute_p_p_sc,                        /*    592 */
+  Parrot_getattribute_p_p_p_s,                       /*    593 */
+  Parrot_getattribute_p_p_pc_s,                      /*    594 */
+  Parrot_getattribute_p_p_p_sc,                      /*    595 */
+  Parrot_getattribute_p_p_pc_sc,                     /*    596 */
+  Parrot_setattribute_p_s_p,                         /*    597 */
+  Parrot_setattribute_p_sc_p,                        /*    598 */
+  Parrot_setattribute_p_p_s_p,                       /*    599 */
+  Parrot_setattribute_p_pc_s_p,                      /*    600 */
+  Parrot_setattribute_p_p_sc_p,                      /*    601 */
+  Parrot_setattribute_p_pc_sc_p,                     /*    602 */
+  Parrot_inspect_p_p,                                /*    603 */
+  Parrot_inspect_p_pc,                               /*    604 */
+  Parrot_inspect_p_p_s,                              /*    605 */
+  Parrot_inspect_p_pc_s,                             /*    606 */
+  Parrot_inspect_p_p_sc,                             /*    607 */
+  Parrot_inspect_p_pc_sc,                            /*    608 */
+  Parrot_new_p_s,                                    /*    609 */
+  Parrot_new_p_sc,                                   /*    610 */
+  Parrot_new_p_s_p,                                  /*    611 */
+  Parrot_new_p_sc_p,                                 /*    612 */
+  Parrot_new_p_s_pc,                                 /*    613 */
+  Parrot_new_p_sc_pc,                                /*    614 */
+  Parrot_new_p_p,                                    /*    615 */
+  Parrot_new_p_pc,                                   /*    616 */
+  Parrot_new_p_p_p,                                  /*    617 */
+  Parrot_new_p_pc_p,                                 /*    618 */
+  Parrot_new_p_p_pc,                                 /*    619 */
+  Parrot_new_p_pc_pc,                                /*    620 */
+  Parrot_root_new_p_p,                               /*    621 */
+  Parrot_root_new_p_pc,                              /*    622 */
+  Parrot_root_new_p_p_p,                             /*    623 */
+  Parrot_root_new_p_pc_p,                            /*    624 */
+  Parrot_root_new_p_p_pc,                            /*    625 */
+  Parrot_root_new_p_pc_pc,                           /*    626 */
+  Parrot_typeof_s_p,                                 /*    627 */
+  Parrot_typeof_p_p,                                 /*    628 */
+  Parrot_get_repr_s_p,                               /*    629 */
+  Parrot_find_method_p_p_s,                          /*    630 */
+  Parrot_find_method_p_p_sc,                         /*    631 */
+  Parrot_defined_i_p,                                /*    632 */
+  Parrot_defined_i_p_ki,                             /*    633 */
+  Parrot_defined_i_p_kic,                            /*    634 */
+  Parrot_defined_i_p_k,                              /*    635 */
+  Parrot_defined_i_p_kc,                             /*    636 */
+  Parrot_exists_i_p_ki,                              /*    637 */
+  Parrot_exists_i_p_kic,                             /*    638 */
+  Parrot_exists_i_p_k,                               /*    639 */
+  Parrot_exists_i_p_kc,                              /*    640 */
+  Parrot_delete_p_k,                                 /*    641 */
+  Parrot_delete_p_kc,                                /*    642 */
+  Parrot_delete_p_ki,                                /*    643 */
+  Parrot_delete_p_kic,                               /*    644 */
+  Parrot_elements_i_p,                               /*    645 */
+  Parrot_push_p_i,                                   /*    646 */
+  Parrot_push_p_ic,                                  /*    647 */
+  Parrot_push_p_n,                                   /*    648 */
+  Parrot_push_p_nc,                                  /*    649 */
+  Parrot_push_p_s,                                   /*    650 */
+  Parrot_push_p_sc,                                  /*    651 */
+  Parrot_push_p_p,                                   /*    652 */
+  Parrot_pop_i_p,                                    /*    653 */
+  Parrot_pop_n_p,                                    /*    654 */
+  Parrot_pop_s_p,                                    /*    655 */
+  Parrot_pop_p_p,                                    /*    656 */
+  Parrot_unshift_p_i,                                /*    657 */
+  Parrot_unshift_p_ic,                               /*    658 */
+  Parrot_unshift_p_n,                                /*    659 */
+  Parrot_unshift_p_nc,                               /*    660 */
+  Parrot_unshift_p_s,                                /*    661 */
+  Parrot_unshift_p_sc,                               /*    662 */
+  Parrot_unshift_p_p,                                /*    663 */
+  Parrot_shift_i_p,                                  /*    664 */
+  Parrot_shift_n_p,                                  /*    665 */
+  Parrot_shift_s_p,                                  /*    666 */
+  Parrot_shift_p_p,                                  /*    667 */
+  Parrot_splice_p_p_i_i,                             /*    668 */
+  Parrot_splice_p_p_ic_i,                            /*    669 */
+  Parrot_splice_p_p_i_ic,                            /*    670 */
+  Parrot_splice_p_p_ic_ic,                           /*    671 */
+  Parrot_setprop_p_s_p,                              /*    672 */
+  Parrot_setprop_p_sc_p,                             /*    673 */
+  Parrot_getprop_p_s_p,                              /*    674 */
+  Parrot_getprop_p_sc_p,                             /*    675 */
+  Parrot_delprop_p_s,                                /*    676 */
+  Parrot_delprop_p_sc,                               /*    677 */
+  Parrot_prophash_p_p,                               /*    678 */
+  Parrot_freeze_s_p,                                 /*    679 */
+  Parrot_thaw_p_s,                                   /*    680 */
+  Parrot_thaw_p_sc,                                  /*    681 */
+  Parrot_add_multi_s_s_p,                            /*    682 */
+  Parrot_add_multi_sc_s_p,                           /*    683 */
+  Parrot_add_multi_s_sc_p,                           /*    684 */
+  Parrot_add_multi_sc_sc_p,                          /*    685 */
+  Parrot_find_multi_p_s_s,                           /*    686 */
+  Parrot_find_multi_p_sc_s,                          /*    687 */
+  Parrot_find_multi_p_s_sc,                          /*    688 */
+  Parrot_find_multi_p_sc_sc,                         /*    689 */
+  Parrot_register_p,                                 /*    690 */
+  Parrot_unregister_p,                               /*    691 */
+  Parrot_box_p_i,                                    /*    692 */
+  Parrot_box_p_ic,                                   /*    693 */
+  Parrot_box_p_n,                                    /*    694 */
+  Parrot_box_p_nc,                                   /*    695 */
+  Parrot_box_p_s,                                    /*    696 */
+  Parrot_box_p_sc,                                   /*    697 */
+  Parrot_iter_p_p,                                   /*    698 */
+  Parrot_morph_p_p,                                  /*    699 */
+  Parrot_morph_p_pc,                                 /*    700 */
+  Parrot_clone_s_s,                                  /*    701 */
+  Parrot_clone_s_sc,                                 /*    702 */
+  Parrot_set_i_i,                                    /*    703 */
+  Parrot_set_i_ic,                                   /*    704 */
+  Parrot_set_i_n,                                    /*    705 */
+  Parrot_set_i_nc,                                   /*    706 */
+  Parrot_set_i_s,                                    /*    707 */
+  Parrot_set_i_sc,                                   /*    708 */
+  Parrot_set_n_n,                                    /*    709 */
+  Parrot_set_n_nc,                                   /*    710 */
+  Parrot_set_n_i,                                    /*    711 */
+  Parrot_set_n_ic,                                   /*    712 */
+  Parrot_set_n_s,                                    /*    713 */
+  Parrot_set_n_sc,                                   /*    714 */
+  Parrot_set_n_p,                                    /*    715 */
+  Parrot_set_s_p,                                    /*    716 */
+  Parrot_set_s_s,                                    /*    717 */
+  Parrot_set_s_sc,                                   /*    718 */
+  Parrot_set_s_i,                                    /*    719 */
+  Parrot_set_s_ic,                                   /*    720 */
+  Parrot_set_s_n,                                    /*    721 */
+  Parrot_set_s_nc,                                   /*    722 */
+  Parrot_set_p_pc,                                   /*    723 */
+  Parrot_set_p_p,                                    /*    724 */
+  Parrot_set_p_i,                                    /*    725 */
+  Parrot_set_p_ic,                                   /*    726 */
+  Parrot_set_p_n,                                    /*    727 */
+  Parrot_set_p_nc,                                   /*    728 */
+  Parrot_set_p_s,                                    /*    729 */
+  Parrot_set_p_sc,                                   /*    730 */
+  Parrot_set_i_p,                                    /*    731 */
+  Parrot_assign_p_p,                                 /*    732 */
+  Parrot_assign_p_i,                                 /*    733 */
+  Parrot_assign_p_ic,                                /*    734 */
+  Parrot_assign_p_n,                                 /*    735 */
+  Parrot_assign_p_nc,                                /*    736 */
+  Parrot_assign_p_s,                                 /*    737 */
+  Parrot_assign_p_sc,                                /*    738 */
+  Parrot_assign_s_s,                                 /*    739 */
+  Parrot_assign_s_sc,                                /*    740 */
+  Parrot_setref_p_p,                                 /*    741 */
+  Parrot_deref_p_p,                                  /*    742 */
+  Parrot_set_p_ki_i,                                 /*    743 */
+  Parrot_set_p_kic_i,                                /*    744 */
+  Parrot_set_p_ki_ic,                                /*    745 */
+  Parrot_set_p_kic_ic,                               /*    746 */
+  Parrot_set_p_ki_n,                                 /*    747 */
+  Parrot_set_p_kic_n,                                /*    748 */
+  Parrot_set_p_ki_nc,                                /*    749 */
+  Parrot_set_p_kic_nc,                               /*    750 */
+  Parrot_set_p_ki_s,                                 /*    751 */
+  Parrot_set_p_kic_s,                                /*    752 */
+  Parrot_set_p_ki_sc,                                /*    753 */
+  Parrot_set_p_kic_sc,                               /*    754 */
+  Parrot_set_p_ki_p,                                 /*    755 */
+  Parrot_set_p_kic_p,                                /*    756 */
+  Parrot_set_i_p_ki,                                 /*    757 */
+  Parrot_set_i_p_kic,                                /*    758 */
+  Parrot_set_n_p_ki,                                 /*    759 */
+  Parrot_set_n_p_kic,                                /*    760 */
+  Parrot_set_s_p_ki,                                 /*    761 */
+  Parrot_set_s_p_kic,                                /*    762 */
+  Parrot_set_p_p_ki,                                 /*    763 */
+  Parrot_set_p_p_kic,                                /*    764 */
+  Parrot_set_p_k_i,                                  /*    765 */
+  Parrot_set_p_kc_i,                                 /*    766 */
+  Parrot_set_p_k_ic,                                 /*    767 */
+  Parrot_set_p_kc_ic,                                /*    768 */
+  Parrot_set_p_k_n,                                  /*    769 */
+  Parrot_set_p_kc_n,                                 /*    770 */
+  Parrot_set_p_k_nc,                                 /*    771 */
+  Parrot_set_p_kc_nc,                                /*    772 */
+  Parrot_set_p_k_s,                                  /*    773 */
+  Parrot_set_p_kc_s,                                 /*    774 */
+  Parrot_set_p_k_sc,                                 /*    775 */
+  Parrot_set_p_kc_sc,                                /*    776 */
+  Parrot_set_p_k_p,                                  /*    777 */
+  Parrot_set_p_kc_p,                                 /*    778 */
+  Parrot_set_i_p_k,                                  /*    779 */
+  Parrot_set_i_p_kc,                                 /*    780 */
+  Parrot_set_n_p_k,                                  /*    781 */
+  Parrot_set_n_p_kc,                                 /*    782 */
+  Parrot_set_s_p_k,                                  /*    783 */
+  Parrot_set_s_p_kc,                                 /*    784 */
+  Parrot_set_p_p_k,                                  /*    785 */
+  Parrot_set_p_p_kc,                                 /*    786 */
+  Parrot_clone_p_p,                                  /*    787 */
+  Parrot_clone_p_p_p,                                /*    788 */
+  Parrot_clone_p_p_pc,                               /*    789 */
+  Parrot_copy_p_p,                                   /*    790 */
+  Parrot_null_s,                                     /*    791 */
+  Parrot_null_i,                                     /*    792 */
+  Parrot_null_p,                                     /*    793 */
+  Parrot_null_n,                                     /*    794 */
+  Parrot_ord_i_s,                                    /*    795 */
+  Parrot_ord_i_sc,                                   /*    796 */
+  Parrot_ord_i_s_i,                                  /*    797 */
+  Parrot_ord_i_sc_i,                                 /*    798 */
+  Parrot_ord_i_s_ic,                                 /*    799 */
+  Parrot_ord_i_sc_ic,                                /*    800 */
+  Parrot_chr_s_i,                                    /*    801 */
+  Parrot_chr_s_ic,                                   /*    802 */
+  Parrot_chopn_s_s_i,                                /*    803 */
+  Parrot_chopn_s_sc_i,                               /*    804 */
+  Parrot_chopn_s_s_ic,                               /*    805 */
+  Parrot_chopn_s_sc_ic,                              /*    806 */
+  Parrot_concat_p_p,                                 /*    807 */
+  Parrot_concat_p_s,                                 /*    808 */
+  Parrot_concat_p_sc,                                /*    809 */
+  Parrot_concat_s_s_s,                               /*    810 */
+  Parrot_concat_s_sc_s,                              /*    811 */
+  Parrot_concat_s_s_sc,                              /*    812 */
+  Parrot_concat_p_p_s,                               /*    813 */
+  Parrot_concat_p_p_sc,                              /*    814 */
+  Parrot_concat_p_p_p,                               /*    815 */
+  Parrot_repeat_s_s_i,                               /*    816 */
+  Parrot_repeat_s_sc_i,                              /*    817 */
+  Parrot_repeat_s_s_ic,                              /*    818 */
+  Parrot_repeat_s_sc_ic,                             /*    819 */
+  Parrot_repeat_p_p_i,                               /*    820 */
+  Parrot_repeat_p_p_ic,                              /*    821 */
+  Parrot_repeat_p_p_p,                               /*    822 */
+  Parrot_repeat_p_i,                                 /*    823 */
+  Parrot_repeat_p_ic,                                /*    824 */
+  Parrot_repeat_p_p,                                 /*    825 */
+  Parrot_length_i_s,                                 /*    826 */
+  Parrot_length_i_sc,                                /*    827 */
+  Parrot_bytelength_i_s,                             /*    828 */
+  Parrot_bytelength_i_sc,                            /*    829 */
+  Parrot_pin_s,                                      /*    830 */
+  Parrot_unpin_s,                                    /*    831 */
+  Parrot_substr_s_s_i,                               /*    832 */
+  Parrot_substr_s_sc_i,                              /*    833 */
+  Parrot_substr_s_s_ic,                              /*    834 */
+  Parrot_substr_s_sc_ic,                             /*    835 */
+  Parrot_substr_s_s_i_i,                             /*    836 */
+  Parrot_substr_s_sc_i_i,                            /*    837 */
+  Parrot_substr_s_s_ic_i,                            /*    838 */
+  Parrot_substr_s_sc_ic_i,                           /*    839 */
+  Parrot_substr_s_s_i_ic,                            /*    840 */
+  Parrot_substr_s_sc_i_ic,                           /*    841 */
+  Parrot_substr_s_s_ic_ic,                           /*    842 */
+  Parrot_substr_s_sc_ic_ic,                          /*    843 */
+  Parrot_substr_s_p_i_i,                             /*    844 */
+  Parrot_substr_s_p_ic_i,                            /*    845 */
+  Parrot_substr_s_p_i_ic,                            /*    846 */
+  Parrot_substr_s_p_ic_ic,                           /*    847 */
+  Parrot_replace_s_s_i_i_s,                          /*    848 */
+  Parrot_replace_s_sc_i_i_s,                         /*    849 */
+  Parrot_replace_s_s_ic_i_s,                         /*    850 */
+  Parrot_replace_s_sc_ic_i_s,                        /*    851 */
+  Parrot_replace_s_s_i_ic_s,                         /*    852 */
+  Parrot_replace_s_sc_i_ic_s,                        /*    853 */
+  Parrot_replace_s_s_ic_ic_s,                        /*    854 */
+  Parrot_replace_s_sc_ic_ic_s,                       /*    855 */
+  Parrot_replace_s_s_i_i_sc,                         /*    856 */
+  Parrot_replace_s_sc_i_i_sc,                        /*    857 */
+  Parrot_replace_s_s_ic_i_sc,                        /*    858 */
+  Parrot_replace_s_sc_ic_i_sc,                       /*    859 */
+  Parrot_replace_s_s_i_ic_sc,                        /*    860 */
+  Parrot_replace_s_sc_i_ic_sc,                       /*    861 */
+  Parrot_replace_s_s_ic_ic_sc,                       /*    862 */
+  Parrot_replace_s_sc_ic_ic_sc,                      /*    863 */
+  Parrot_index_i_s_s,                                /*    864 */
+  Parrot_index_i_sc_s,                               /*    865 */
+  Parrot_index_i_s_sc,                               /*    866 */
+  Parrot_index_i_sc_sc,                              /*    867 */
+  Parrot_index_i_s_s_i,                              /*    868 */
+  Parrot_index_i_sc_s_i,                             /*    869 */
+  Parrot_index_i_s_sc_i,                             /*    870 */
+  Parrot_index_i_sc_sc_i,                            /*    871 */
+  Parrot_index_i_s_s_ic,                             /*    872 */
+  Parrot_index_i_sc_s_ic,                            /*    873 */
+  Parrot_index_i_s_sc_ic,                            /*    874 */
+  Parrot_index_i_sc_sc_ic,                           /*    875 */
+  Parrot_sprintf_s_s_p,                              /*    876 */
+  Parrot_sprintf_s_sc_p,                             /*    877 */
+  Parrot_sprintf_p_p_p,                              /*    878 */
+  Parrot_new_s,                                      /*    879 */
+  Parrot_new_s_i,                                    /*    880 */
+  Parrot_new_s_ic,                                   /*    881 */
+  Parrot_stringinfo_i_s_i,                           /*    882 */
+  Parrot_stringinfo_i_sc_i,                          /*    883 */
+  Parrot_stringinfo_i_s_ic,                          /*    884 */
+  Parrot_stringinfo_i_sc_ic,                         /*    885 */
+  Parrot_upcase_s_s,                                 /*    886 */
+  Parrot_upcase_s_sc,                                /*    887 */
+  Parrot_downcase_s_s,                               /*    888 */
+  Parrot_downcase_s_sc,                              /*    889 */
+  Parrot_titlecase_s_s,                              /*    890 */
+  Parrot_titlecase_s_sc,                             /*    891 */
+  Parrot_join_s_s_p,                                 /*    892 */
+  Parrot_join_s_sc_p,                                /*    893 */
+  Parrot_split_p_s_s,                                /*    894 */
+  Parrot_split_p_sc_s,                               /*    895 */
+  Parrot_split_p_s_sc,                               /*    896 */
+  Parrot_split_p_sc_sc,                              /*    897 */
+  Parrot_encoding_i_s,                               /*    898 */
+  Parrot_encoding_i_sc,                              /*    899 */
+  Parrot_encodingname_s_i,                           /*    900 */
+  Parrot_encodingname_s_ic,                          /*    901 */
+  Parrot_find_encoding_i_s,                          /*    902 */
+  Parrot_find_encoding_i_sc,                         /*    903 */
+  Parrot_trans_encoding_s_s_i,                       /*    904 */
+  Parrot_trans_encoding_s_sc_i,                      /*    905 */
+  Parrot_trans_encoding_s_s_ic,                      /*    906 */
+  Parrot_trans_encoding_s_sc_ic,                     /*    907 */
+  Parrot_is_cclass_i_i_s_i,                          /*    908 */
+  Parrot_is_cclass_i_ic_s_i,                         /*    909 */
+  Parrot_is_cclass_i_i_sc_i,                         /*    910 */
+  Parrot_is_cclass_i_ic_sc_i,                        /*    911 */
+  Parrot_is_cclass_i_i_s_ic,                         /*    912 */
+  Parrot_is_cclass_i_ic_s_ic,                        /*    913 */
+  Parrot_is_cclass_i_i_sc_ic,                        /*    914 */
+  Parrot_is_cclass_i_ic_sc_ic,                       /*    915 */
+  Parrot_find_cclass_i_i_s_i_i,                      /*    916 */
+  Parrot_find_cclass_i_ic_s_i_i,                     /*    917 */
+  Parrot_find_cclass_i_i_sc_i_i,                     /*    918 */
+  Parrot_find_cclass_i_ic_sc_i_i,                    /*    919 */
+  Parrot_find_cclass_i_i_s_ic_i,                     /*    920 */
+  Parrot_find_cclass_i_ic_s_ic_i,                    /*    921 */
+  Parrot_find_cclass_i_i_sc_ic_i,                    /*    922 */
+  Parrot_find_cclass_i_ic_sc_ic_i,                   /*    923 */
+  Parrot_find_cclass_i_i_s_i_ic,                     /*    924 */
+  Parrot_find_cclass_i_ic_s_i_ic,                    /*    925 */
+  Parrot_find_cclass_i_i_sc_i_ic,                    /*    926 */
+  Parrot_find_cclass_i_ic_sc_i_ic,                   /*    927 */
+  Parrot_find_cclass_i_i_s_ic_ic,                    /*    928 */
+  Parrot_find_cclass_i_ic_s_ic_ic,                   /*    929 */
+  Parrot_find_cclass_i_i_sc_ic_ic,                   /*    930 */
+  Parrot_find_cclass_i_ic_sc_ic_ic,                  /*    931 */
+  Parrot_find_not_cclass_i_i_s_i_i,                  /*    932 */
+  Parrot_find_not_cclass_i_ic_s_i_i,                 /*    933 */
+  Parrot_find_not_cclass_i_i_sc_i_i,                 /*    934 */
+  Parrot_find_not_cclass_i_ic_sc_i_i,                /*    935 */
+  Parrot_find_not_cclass_i_i_s_ic_i,                 /*    936 */
+  Parrot_find_not_cclass_i_ic_s_ic_i,                /*    937 */
+  Parrot_find_not_cclass_i_i_sc_ic_i,                /*    938 */
+  Parrot_find_not_cclass_i_ic_sc_ic_i,               /*    939 */
+  Parrot_find_not_cclass_i_i_s_i_ic,                 /*    940 */
+  Parrot_find_not_cclass_i_ic_s_i_ic,                /*    941 */
+  Parrot_find_not_cclass_i_i_sc_i_ic,                /*    942 */
+  Parrot_find_not_cclass_i_ic_sc_i_ic,               /*    943 */
+  Parrot_find_not_cclass_i_i_s_ic_ic,                /*    944 */
+  Parrot_find_not_cclass_i_ic_s_ic_ic,               /*    945 */
+  Parrot_find_not_cclass_i_i_sc_ic_ic,               /*    946 */
+  Parrot_find_not_cclass_i_ic_sc_ic_ic,              /*    947 */
+  Parrot_escape_s_s,                                 /*    948 */
+  Parrot_compose_s_s,                                /*    949 */
+  Parrot_compose_s_sc,                               /*    950 */
+  Parrot_find_codepoint_i_s,                         /*    951 */
+  Parrot_find_codepoint_i_sc,                        /*    952 */
+  Parrot_spawnw_i_s,                                 /*    953 */
+  Parrot_spawnw_i_sc,                                /*    954 */
+  Parrot_spawnw_i_p,                                 /*    955 */
+  Parrot_err_i,                                      /*    956 */
+  Parrot_err_s,                                      /*    957 */
+  Parrot_err_s_i,                                    /*    958 */
+  Parrot_err_s_ic,                                   /*    959 */
+  Parrot_time_i,                                     /*    960 */
+  Parrot_time_n,                                     /*    961 */
+  Parrot_sleep_i,                                    /*    962 */
+  Parrot_sleep_ic,                                   /*    963 */
+  Parrot_sleep_n,                                    /*    964 */
+  Parrot_sleep_nc,                                   /*    965 */
+  Parrot_store_lex_s_p,                              /*    966 */
+  Parrot_store_lex_sc_p,                             /*    967 */
+  Parrot_store_lex_s_s,                              /*    968 */
+  Parrot_store_lex_sc_s,                             /*    969 */
+  Parrot_store_lex_s_sc,                             /*    970 */
+  Parrot_store_lex_sc_sc,                            /*    971 */
+  Parrot_store_lex_s_i,                              /*    972 */
+  Parrot_store_lex_sc_i,                             /*    973 */
+  Parrot_store_lex_s_ic,                             /*    974 */
+  Parrot_store_lex_sc_ic,                            /*    975 */
+  Parrot_store_lex_s_n,                              /*    976 */
+  Parrot_store_lex_sc_n,                             /*    977 */
+  Parrot_store_lex_s_nc,                             /*    978 */
+  Parrot_store_lex_sc_nc,                            /*    979 */
+  Parrot_store_dynamic_lex_s_p,                      /*    980 */
+  Parrot_store_dynamic_lex_sc_p,                     /*    981 */
+  Parrot_find_lex_p_s,                               /*    982 */
+  Parrot_find_lex_p_sc,                              /*    983 */
+  Parrot_find_lex_s_s,                               /*    984 */
+  Parrot_find_lex_s_sc,                              /*    985 */
+  Parrot_find_lex_i_s,                               /*    986 */
+  Parrot_find_lex_i_sc,                              /*    987 */
+  Parrot_find_lex_n_s,                               /*    988 */
+  Parrot_find_lex_n_sc,                              /*    989 */
+  Parrot_find_dynamic_lex_p_s,                       /*    990 */
+  Parrot_find_dynamic_lex_p_sc,                      /*    991 */
+  Parrot_find_caller_lex_p_s,                        /*    992 */
+  Parrot_find_caller_lex_p_sc,                       /*    993 */
+  Parrot_get_namespace_p,                            /*    994 */
+  Parrot_get_namespace_p_p,                          /*    995 */
+  Parrot_get_namespace_p_pc,                         /*    996 */
+  Parrot_get_hll_namespace_p,                        /*    997 */
+  Parrot_get_hll_namespace_p_p,                      /*    998 */
+  Parrot_get_hll_namespace_p_pc,                     /*    999 */
+  Parrot_get_root_namespace_p,                       /*   1000 */
+  Parrot_get_root_namespace_p_p,                     /*   1001 */
+  Parrot_get_root_namespace_p_pc,                    /*   1002 */
+  Parrot_get_global_p_s,                             /*   1003 */
+  Parrot_get_global_p_sc,                            /*   1004 */
+  Parrot_get_global_p_p_s,                           /*   1005 */
+  Parrot_get_global_p_pc_s,                          /*   1006 */
+  Parrot_get_global_p_p_sc,                          /*   1007 */
+  Parrot_get_global_p_pc_sc,                         /*   1008 */
+  Parrot_get_hll_global_p_s,                         /*   1009 */
+  Parrot_get_hll_global_p_sc,                        /*   1010 */
+  Parrot_get_hll_global_p_p_s,                       /*   1011 */
+  Parrot_get_hll_global_p_pc_s,                      /*   1012 */
+  Parrot_get_hll_global_p_p_sc,                      /*   1013 */
+  Parrot_get_hll_global_p_pc_sc,                     /*   1014 */
+  Parrot_get_root_global_p_s,                        /*   1015 */
+  Parrot_get_root_global_p_sc,                       /*   1016 */
+  Parrot_get_root_global_p_p_s,                      /*   1017 */
+  Parrot_get_root_global_p_pc_s,                     /*   1018 */
+  Parrot_get_root_global_p_p_sc,                     /*   1019 */
+  Parrot_get_root_global_p_pc_sc,                    /*   1020 */
+  Parrot_set_global_s_p,                             /*   1021 */
+  Parrot_set_global_sc_p,                            /*   1022 */
+  Parrot_set_global_p_s_p,                           /*   1023 */
+  Parrot_set_global_pc_s_p,                          /*   1024 */
+  Parrot_set_global_p_sc_p,                          /*   1025 */
+  Parrot_set_global_pc_sc_p,                         /*   1026 */
+  Parrot_set_hll_global_s_p,                         /*   1027 */
+  Parrot_set_hll_global_sc_p,                        /*   1028 */
+  Parrot_set_hll_global_p_s_p,                       /*   1029 */
+  Parrot_set_hll_global_pc_s_p,                      /*   1030 */
+  Parrot_set_hll_global_p_sc_p,                      /*   1031 */
+  Parrot_set_hll_global_pc_sc_p,                     /*   1032 */
+  Parrot_set_root_global_s_p,                        /*   1033 */
+  Parrot_set_root_global_sc_p,                       /*   1034 */
+  Parrot_set_root_global_p_s_p,                      /*   1035 */
+  Parrot_set_root_global_pc_s_p,                     /*   1036 */
+  Parrot_set_root_global_p_sc_p,                     /*   1037 */
+  Parrot_set_root_global_pc_sc_p,                    /*   1038 */
+  Parrot_find_name_p_s,                              /*   1039 */
+  Parrot_find_name_p_sc,                             /*   1040 */
+  Parrot_find_sub_not_null_p_s,                      /*   1041 */
+  Parrot_find_sub_not_null_p_sc,                     /*   1042 */
+  Parrot_trap,                                       /*   1043 */
+  Parrot_set_label_p_ic,                             /*   1044 */
+  Parrot_get_label_i_p,                              /*   1045 */
+  Parrot_get_id_i_p,                                 /*   1046 */
+  Parrot_get_id_i_pc,                                /*   1047 */
+  Parrot_fetch_p_p_p_p,                              /*   1048 */
+  Parrot_fetch_p_pc_p_p,                             /*   1049 */
+  Parrot_fetch_p_p_pc_p,                             /*   1050 */
+  Parrot_fetch_p_pc_pc_p,                            /*   1051 */
+  Parrot_fetch_p_p_p_pc,                             /*   1052 */
+  Parrot_fetch_p_pc_p_pc,                            /*   1053 */
+  Parrot_fetch_p_p_pc_pc,                            /*   1054 */
+  Parrot_fetch_p_pc_pc_pc,                           /*   1055 */
+  Parrot_fetch_p_p_i_p,                              /*   1056 */
+  Parrot_fetch_p_pc_i_p,                             /*   1057 */
+  Parrot_fetch_p_p_ic_p,                             /*   1058 */
+  Parrot_fetch_p_pc_ic_p,                            /*   1059 */
+  Parrot_fetch_p_p_i_pc,                             /*   1060 */
+  Parrot_fetch_p_pc_i_pc,                            /*   1061 */
+  Parrot_fetch_p_p_ic_pc,                            /*   1062 */
+  Parrot_fetch_p_pc_ic_pc,                           /*   1063 */
+  Parrot_fetch_p_p_s_p,                              /*   1064 */
+  Parrot_fetch_p_pc_s_p,                             /*   1065 */
+  Parrot_fetch_p_p_sc_p,                             /*   1066 */
+  Parrot_fetch_p_pc_sc_p,                            /*   1067 */
+  Parrot_fetch_p_p_s_pc,                             /*   1068 */
+  Parrot_fetch_p_pc_s_pc,                            /*   1069 */
+  Parrot_fetch_p_p_sc_pc,                            /*   1070 */
+  Parrot_fetch_p_pc_sc_pc,                           /*   1071 */
+  Parrot_vivify_p_p_p_p,                             /*   1072 */
+  Parrot_vivify_p_pc_p_p,                            /*   1073 */
+  Parrot_vivify_p_p_pc_p,                            /*   1074 */
+  Parrot_vivify_p_pc_pc_p,                           /*   1075 */
+  Parrot_vivify_p_p_p_pc,                            /*   1076 */
+  Parrot_vivify_p_pc_p_pc,                           /*   1077 */
+  Parrot_vivify_p_p_pc_pc,                           /*   1078 */
+  Parrot_vivify_p_pc_pc_pc,                          /*   1079 */
+  Parrot_vivify_p_p_i_p,                             /*   1080 */
+  Parrot_vivify_p_pc_i_p,                            /*   1081 */
+  Parrot_vivify_p_p_ic_p,                            /*   1082 */
+  Parrot_vivify_p_pc_ic_p,                           /*   1083 */
+  Parrot_vivify_p_p_i_pc,                            /*   1084 */
+  Parrot_vivify_p_pc_i_pc,                           /*   1085 */
+  Parrot_vivify_p_p_ic_pc,                           /*   1086 */
+  Parrot_vivify_p_pc_ic_pc,                          /*   1087 */
+  Parrot_vivify_p_p_s_p,                             /*   1088 */
+  Parrot_vivify_p_pc_s_p,                            /*   1089 */
+  Parrot_vivify_p_p_sc_p,                            /*   1090 */
+  Parrot_vivify_p_pc_sc_p,                           /*   1091 */
+  Parrot_vivify_p_p_s_pc,                            /*   1092 */
+  Parrot_vivify_p_pc_s_pc,                           /*   1093 */
+  Parrot_vivify_p_p_sc_pc,                           /*   1094 */
+  Parrot_vivify_p_pc_sc_pc,                          /*   1095 */
+  Parrot_new_p_s_i,                                  /*   1096 */
+  Parrot_new_p_sc_i,                                 /*   1097 */
+  Parrot_new_p_s_ic,                                 /*   1098 */
+  Parrot_new_p_sc_ic,                                /*   1099 */
+  Parrot_new_p_p_i,                                  /*   1100 */
+  Parrot_new_p_pc_i,                                 /*   1101 */
+  Parrot_new_p_p_ic,                                 /*   1102 */
+  Parrot_new_p_pc_ic,                                /*   1103 */
+  Parrot_root_new_p_p_i,                             /*   1104 */
+  Parrot_root_new_p_pc_i,                            /*   1105 */
+  Parrot_root_new_p_p_ic,                            /*   1106 */
+  Parrot_root_new_p_pc_ic,                           /*   1107 */
+  Parrot_receive_p,                                  /*   1108 */
+  Parrot_wait_p,                                     /*   1109 */
+  Parrot_wait_pc,                                    /*   1110 */
+  Parrot_pass,                                       /*   1111 */
 
   NULL /* NULL function pointer */
 };
@@ -1205,7 +1206,7 @@ static op_func_t core_op_func_table[1111] = {
 ** Op Info Table:
 */
 
-static op_info_t core_op_info_table[1111] = {
+static op_info_t core_op_info_table[1113] = {
   { /* 0 */
     "end",
     "end",
@@ -7059,6 +7060,28 @@ static op_info_t core_op_info_table[1111] = {
     &core_op_lib
   },
   { /* 532 */
+    "is_inf_or_nan",
+    "is_inf_or_nan_i_n",
+    "Parrot_is_inf_or_nan_i_n",
+    0,
+    3,
+    { PARROT_ARG_I, PARROT_ARG_N },
+    { PARROT_ARGDIR_OUT, PARROT_ARGDIR_IN },
+    { 0, 0 },
+    &core_op_lib
+  },
+  { /* 533 */
+    "is_inf_or_nan",
+    "is_inf_or_nan_i_nc",
+    "Parrot_is_inf_or_nan_i_nc",
+    0,
+    3,
+    { PARROT_ARG_I, PARROT_ARG_NC },
+    { PARROT_ARGDIR_OUT, PARROT_ARGDIR_IN },
+    { 0, 0 },
+    &core_op_lib
+  },
+  { /* 534 */
     "callmethodcc",
     "callmethodcc_p_s",
     "Parrot_callmethodcc_p_s",
@@ -7069,7 +7092,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 533 */
+  { /* 535 */
     "callmethodcc",
     "callmethodcc_p_sc",
     "Parrot_callmethodcc_p_sc",
@@ -7080,7 +7103,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 534 */
+  { /* 536 */
     "callmethodcc",
     "callmethodcc_p_p",
     "Parrot_callmethodcc_p_p",
@@ -7091,7 +7114,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 535 */
+  { /* 537 */
     "callmethod",
     "callmethod_p_s_p",
     "Parrot_callmethod_p_s_p",
@@ -7102,7 +7125,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 536 */
+  { /* 538 */
     "callmethod",
     "callmethod_p_sc_p",
     "Parrot_callmethod_p_sc_p",
@@ -7113,7 +7136,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 537 */
+  { /* 539 */
     "callmethod",
     "callmethod_p_p_p",
     "Parrot_callmethod_p_p_p",
@@ -7124,7 +7147,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 538 */
+  { /* 540 */
     "tailcallmethod",
     "tailcallmethod_p_s",
     "Parrot_tailcallmethod_p_s",
@@ -7135,7 +7158,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 539 */
+  { /* 541 */
     "tailcallmethod",
     "tailcallmethod_p_sc",
     "Parrot_tailcallmethod_p_sc",
@@ -7146,7 +7169,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 540 */
+  { /* 542 */
     "tailcallmethod",
     "tailcallmethod_p_p",
     "Parrot_tailcallmethod_p_p",
@@ -7157,7 +7180,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 541 */
+  { /* 543 */
     "addmethod",
     "addmethod_p_s_p",
     "Parrot_addmethod_p_s_p",
@@ -7168,7 +7191,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 542 */
+  { /* 544 */
     "addmethod",
     "addmethod_p_sc_p",
     "Parrot_addmethod_p_sc_p",
@@ -7179,7 +7202,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 543 */
+  { /* 545 */
     "can",
     "can_i_p_s",
     "Parrot_can_i_p_s",
@@ -7190,7 +7213,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 544 */
+  { /* 546 */
     "can",
     "can_i_p_sc",
     "Parrot_can_i_p_sc",
@@ -7201,7 +7224,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 545 */
+  { /* 547 */
     "does",
     "does_i_p_s",
     "Parrot_does_i_p_s",
@@ -7212,7 +7235,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 546 */
+  { /* 548 */
     "does",
     "does_i_p_sc",
     "Parrot_does_i_p_sc",
@@ -7223,7 +7246,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 547 */
+  { /* 549 */
     "does",
     "does_i_p_p",
     "Parrot_does_i_p_p",
@@ -7234,7 +7257,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 548 */
+  { /* 550 */
     "does",
     "does_i_p_pc",
     "Parrot_does_i_p_pc",
@@ -7245,7 +7268,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 549 */
+  { /* 551 */
     "isa",
     "isa_i_p_s",
     "Parrot_isa_i_p_s",
@@ -7256,7 +7279,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 550 */
+  { /* 552 */
     "isa",
     "isa_i_p_sc",
     "Parrot_isa_i_p_sc",
@@ -7267,7 +7290,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 551 */
+  { /* 553 */
     "isa",
     "isa_i_p_p",
     "Parrot_isa_i_p_p",
@@ -7278,7 +7301,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 552 */
+  { /* 554 */
     "isa",
     "isa_i_p_pc",
     "Parrot_isa_i_p_pc",
@@ -7289,7 +7312,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 553 */
+  { /* 555 */
     "newclass",
     "newclass_p_s",
     "Parrot_newclass_p_s",
@@ -7300,7 +7323,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 554 */
+  { /* 556 */
     "newclass",
     "newclass_p_sc",
     "Parrot_newclass_p_sc",
@@ -7311,7 +7334,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 555 */
+  { /* 557 */
     "newclass",
     "newclass_p_p",
     "Parrot_newclass_p_p",
@@ -7322,7 +7345,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 556 */
+  { /* 558 */
     "newclass",
     "newclass_p_pc",
     "Parrot_newclass_p_pc",
@@ -7333,7 +7356,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 557 */
+  { /* 559 */
     "subclass",
     "subclass_p_p",
     "Parrot_subclass_p_p",
@@ -7344,7 +7367,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 558 */
+  { /* 560 */
     "subclass",
     "subclass_p_pc",
     "Parrot_subclass_p_pc",
@@ -7355,7 +7378,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 559 */
+  { /* 561 */
     "subclass",
     "subclass_p_p_s",
     "Parrot_subclass_p_p_s",
@@ -7366,7 +7389,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 560 */
+  { /* 562 */
     "subclass",
     "subclass_p_pc_s",
     "Parrot_subclass_p_pc_s",
@@ -7377,7 +7400,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 561 */
+  { /* 563 */
     "subclass",
     "subclass_p_p_sc",
     "Parrot_subclass_p_p_sc",
@@ -7388,7 +7411,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 562 */
+  { /* 564 */
     "subclass",
     "subclass_p_pc_sc",
     "Parrot_subclass_p_pc_sc",
@@ -7399,7 +7422,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 563 */
+  { /* 565 */
     "subclass",
     "subclass_p_p_p",
     "Parrot_subclass_p_p_p",
@@ -7410,7 +7433,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 564 */
+  { /* 566 */
     "subclass",
     "subclass_p_pc_p",
     "Parrot_subclass_p_pc_p",
@@ -7421,7 +7444,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 565 */
+  { /* 567 */
     "subclass",
     "subclass_p_p_pc",
     "Parrot_subclass_p_p_pc",
@@ -7432,7 +7455,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 566 */
+  { /* 568 */
     "subclass",
     "subclass_p_pc_pc",
     "Parrot_subclass_p_pc_pc",
@@ -7443,7 +7466,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 567 */
+  { /* 569 */
     "subclass",
     "subclass_p_s",
     "Parrot_subclass_p_s",
@@ -7454,7 +7477,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 568 */
+  { /* 570 */
     "subclass",
     "subclass_p_sc",
     "Parrot_subclass_p_sc",
@@ -7465,7 +7488,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 569 */
+  { /* 571 */
     "subclass",
     "subclass_p_s_s",
     "Parrot_subclass_p_s_s",
@@ -7476,7 +7499,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 570 */
+  { /* 572 */
     "subclass",
     "subclass_p_sc_s",
     "Parrot_subclass_p_sc_s",
@@ -7487,7 +7510,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 571 */
+  { /* 573 */
     "subclass",
     "subclass_p_s_sc",
     "Parrot_subclass_p_s_sc",
@@ -7498,7 +7521,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 572 */
+  { /* 574 */
     "subclass",
     "subclass_p_sc_sc",
     "Parrot_subclass_p_sc_sc",
@@ -7509,7 +7532,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 573 */
+  { /* 575 */
     "subclass",
     "subclass_p_s_p",
     "Parrot_subclass_p_s_p",
@@ -7520,7 +7543,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 574 */
+  { /* 576 */
     "subclass",
     "subclass_p_sc_p",
     "Parrot_subclass_p_sc_p",
@@ -7531,7 +7554,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 575 */
+  { /* 577 */
     "subclass",
     "subclass_p_s_pc",
     "Parrot_subclass_p_s_pc",
@@ -7542,7 +7565,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 576 */
+  { /* 578 */
     "subclass",
     "subclass_p_sc_pc",
     "Parrot_subclass_p_sc_pc",
@@ -7553,7 +7576,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 577 */
+  { /* 579 */
     "get_class",
     "get_class_p_s",
     "Parrot_get_class_p_s",
@@ -7564,7 +7587,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 578 */
+  { /* 580 */
     "get_class",
     "get_class_p_sc",
     "Parrot_get_class_p_sc",
@@ -7575,7 +7598,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 579 */
+  { /* 581 */
     "get_class",
     "get_class_p_p",
     "Parrot_get_class_p_p",
@@ -7586,7 +7609,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 580 */
+  { /* 582 */
     "get_class",
     "get_class_p_pc",
     "Parrot_get_class_p_pc",
@@ -7597,7 +7620,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 581 */
+  { /* 583 */
     "class",
     "class_p_p",
     "Parrot_class_p_p",
@@ -7608,7 +7631,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 582 */
+  { /* 584 */
     "addparent",
     "addparent_p_p",
     "Parrot_addparent_p_p",
@@ -7619,7 +7642,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 583 */
+  { /* 585 */
     "removeparent",
     "removeparent_p_p",
     "Parrot_removeparent_p_p",
@@ -7630,7 +7653,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 584 */
+  { /* 586 */
     "addrole",
     "addrole_p_p",
     "Parrot_addrole_p_p",
@@ -7641,7 +7664,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 585 */
+  { /* 587 */
     "addattribute",
     "addattribute_p_s",
     "Parrot_addattribute_p_s",
@@ -7652,7 +7675,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 586 */
+  { /* 588 */
     "addattribute",
     "addattribute_p_sc",
     "Parrot_addattribute_p_sc",
@@ -7663,7 +7686,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 587 */
+  { /* 589 */
     "removeattribute",
     "removeattribute_p_s",
     "Parrot_removeattribute_p_s",
@@ -7674,7 +7697,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 588 */
+  { /* 590 */
     "removeattribute",
     "removeattribute_p_sc",
     "Parrot_removeattribute_p_sc",
@@ -7685,7 +7708,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 589 */
+  { /* 591 */
     "getattribute",
     "getattribute_p_p_s",
     "Parrot_getattribute_p_p_s",
@@ -7696,7 +7719,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 590 */
+  { /* 592 */
     "getattribute",
     "getattribute_p_p_sc",
     "Parrot_getattribute_p_p_sc",
@@ -7707,7 +7730,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 591 */
+  { /* 593 */
     "getattribute",
     "getattribute_p_p_p_s",
     "Parrot_getattribute_p_p_p_s",
@@ -7718,7 +7741,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 592 */
+  { /* 594 */
     "getattribute",
     "getattribute_p_p_pc_s",
     "Parrot_getattribute_p_p_pc_s",
@@ -7729,7 +7752,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 593 */
+  { /* 595 */
     "getattribute",
     "getattribute_p_p_p_sc",
     "Parrot_getattribute_p_p_p_sc",
@@ -7740,7 +7763,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 594 */
+  { /* 596 */
     "getattribute",
     "getattribute_p_p_pc_sc",
     "Parrot_getattribute_p_p_pc_sc",
@@ -7751,7 +7774,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 595 */
+  { /* 597 */
     "setattribute",
     "setattribute_p_s_p",
     "Parrot_setattribute_p_s_p",
@@ -7762,7 +7785,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 596 */
+  { /* 598 */
     "setattribute",
     "setattribute_p_sc_p",
     "Parrot_setattribute_p_sc_p",
@@ -7773,7 +7796,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 597 */
+  { /* 599 */
     "setattribute",
     "setattribute_p_p_s_p",
     "Parrot_setattribute_p_p_s_p",
@@ -7784,7 +7807,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 598 */
+  { /* 600 */
     "setattribute",
     "setattribute_p_pc_s_p",
     "Parrot_setattribute_p_pc_s_p",
@@ -7795,7 +7818,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 599 */
+  { /* 601 */
     "setattribute",
     "setattribute_p_p_sc_p",
     "Parrot_setattribute_p_p_sc_p",
@@ -7806,7 +7829,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 600 */
+  { /* 602 */
     "setattribute",
     "setattribute_p_pc_sc_p",
     "Parrot_setattribute_p_pc_sc_p",
@@ -7817,7 +7840,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 601 */
+  { /* 603 */
     "inspect",
     "inspect_p_p",
     "Parrot_inspect_p_p",
@@ -7828,7 +7851,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 602 */
+  { /* 604 */
     "inspect",
     "inspect_p_pc",
     "Parrot_inspect_p_pc",
@@ -7839,7 +7862,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 603 */
+  { /* 605 */
     "inspect",
     "inspect_p_p_s",
     "Parrot_inspect_p_p_s",
@@ -7850,7 +7873,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 604 */
+  { /* 606 */
     "inspect",
     "inspect_p_pc_s",
     "Parrot_inspect_p_pc_s",
@@ -7861,7 +7884,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 605 */
+  { /* 607 */
     "inspect",
     "inspect_p_p_sc",
     "Parrot_inspect_p_p_sc",
@@ -7872,7 +7895,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 606 */
+  { /* 608 */
     "inspect",
     "inspect_p_pc_sc",
     "Parrot_inspect_p_pc_sc",
@@ -7883,7 +7906,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 607 */
+  { /* 609 */
     "new",
     "new_p_s",
     "Parrot_new_p_s",
@@ -7894,7 +7917,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 608 */
+  { /* 610 */
     "new",
     "new_p_sc",
     "Parrot_new_p_sc",
@@ -7905,7 +7928,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 609 */
+  { /* 611 */
     "new",
     "new_p_s_p",
     "Parrot_new_p_s_p",
@@ -7916,7 +7939,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 610 */
+  { /* 612 */
     "new",
     "new_p_sc_p",
     "Parrot_new_p_sc_p",
@@ -7927,7 +7950,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 611 */
+  { /* 613 */
     "new",
     "new_p_s_pc",
     "Parrot_new_p_s_pc",
@@ -7938,7 +7961,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 612 */
+  { /* 614 */
     "new",
     "new_p_sc_pc",
     "Parrot_new_p_sc_pc",
@@ -7949,7 +7972,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 613 */
+  { /* 615 */
     "new",
     "new_p_p",
     "Parrot_new_p_p",
@@ -7960,7 +7983,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 614 */
+  { /* 616 */
     "new",
     "new_p_pc",
     "Parrot_new_p_pc",
@@ -7971,7 +7994,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 615 */
+  { /* 617 */
     "new",
     "new_p_p_p",
     "Parrot_new_p_p_p",
@@ -7982,7 +8005,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 616 */
+  { /* 618 */
     "new",
     "new_p_pc_p",
     "Parrot_new_p_pc_p",
@@ -7993,7 +8016,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 617 */
+  { /* 619 */
     "new",
     "new_p_p_pc",
     "Parrot_new_p_p_pc",
@@ -8004,7 +8027,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 618 */
+  { /* 620 */
     "new",
     "new_p_pc_pc",
     "Parrot_new_p_pc_pc",
@@ -8015,7 +8038,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 619 */
+  { /* 621 */
     "root_new",
     "root_new_p_p",
     "Parrot_root_new_p_p",
@@ -8026,7 +8049,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 620 */
+  { /* 622 */
     "root_new",
     "root_new_p_pc",
     "Parrot_root_new_p_pc",
@@ -8037,7 +8060,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 621 */
+  { /* 623 */
     "root_new",
     "root_new_p_p_p",
     "Parrot_root_new_p_p_p",
@@ -8048,7 +8071,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 622 */
+  { /* 624 */
     "root_new",
     "root_new_p_pc_p",
     "Parrot_root_new_p_pc_p",
@@ -8059,7 +8082,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 623 */
+  { /* 625 */
     "root_new",
     "root_new_p_p_pc",
     "Parrot_root_new_p_p_pc",
@@ -8070,7 +8093,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 624 */
+  { /* 626 */
     "root_new",
     "root_new_p_pc_pc",
     "Parrot_root_new_p_pc_pc",
@@ -8081,7 +8104,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 625 */
+  { /* 627 */
     "typeof",
     "typeof_s_p",
     "Parrot_typeof_s_p",
@@ -8092,7 +8115,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 626 */
+  { /* 628 */
     "typeof",
     "typeof_p_p",
     "Parrot_typeof_p_p",
@@ -8103,7 +8126,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 627 */
+  { /* 629 */
     "get_repr",
     "get_repr_s_p",
     "Parrot_get_repr_s_p",
@@ -8114,7 +8137,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 628 */
+  { /* 630 */
     "find_method",
     "find_method_p_p_s",
     "Parrot_find_method_p_p_s",
@@ -8125,7 +8148,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 629 */
+  { /* 631 */
     "find_method",
     "find_method_p_p_sc",
     "Parrot_find_method_p_p_sc",
@@ -8136,7 +8159,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 630 */
+  { /* 632 */
     "defined",
     "defined_i_p",
     "Parrot_defined_i_p",
@@ -8147,7 +8170,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 631 */
+  { /* 633 */
     "defined",
     "defined_i_p_ki",
     "Parrot_defined_i_p_ki",
@@ -8158,7 +8181,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 632 */
+  { /* 634 */
     "defined",
     "defined_i_p_kic",
     "Parrot_defined_i_p_kic",
@@ -8169,7 +8192,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 633 */
+  { /* 635 */
     "defined",
     "defined_i_p_k",
     "Parrot_defined_i_p_k",
@@ -8180,7 +8203,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 634 */
+  { /* 636 */
     "defined",
     "defined_i_p_kc",
     "Parrot_defined_i_p_kc",
@@ -8191,7 +8214,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 635 */
+  { /* 637 */
     "exists",
     "exists_i_p_ki",
     "Parrot_exists_i_p_ki",
@@ -8202,7 +8225,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 636 */
+  { /* 638 */
     "exists",
     "exists_i_p_kic",
     "Parrot_exists_i_p_kic",
@@ -8213,7 +8236,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 637 */
+  { /* 639 */
     "exists",
     "exists_i_p_k",
     "Parrot_exists_i_p_k",
@@ -8224,7 +8247,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 638 */
+  { /* 640 */
     "exists",
     "exists_i_p_kc",
     "Parrot_exists_i_p_kc",
@@ -8235,7 +8258,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 639 */
+  { /* 641 */
     "delete",
     "delete_p_k",
     "Parrot_delete_p_k",
@@ -8246,7 +8269,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 640 */
+  { /* 642 */
     "delete",
     "delete_p_kc",
     "Parrot_delete_p_kc",
@@ -8257,7 +8280,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 641 */
+  { /* 643 */
     "delete",
     "delete_p_ki",
     "Parrot_delete_p_ki",
@@ -8268,7 +8291,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 642 */
+  { /* 644 */
     "delete",
     "delete_p_kic",
     "Parrot_delete_p_kic",
@@ -8279,7 +8302,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 643 */
+  { /* 645 */
     "elements",
     "elements_i_p",
     "Parrot_elements_i_p",
@@ -8290,7 +8313,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 644 */
+  { /* 646 */
     "push",
     "push_p_i",
     "Parrot_push_p_i",
@@ -8301,7 +8324,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 645 */
+  { /* 647 */
     "push",
     "push_p_ic",
     "Parrot_push_p_ic",
@@ -8312,7 +8335,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 646 */
+  { /* 648 */
     "push",
     "push_p_n",
     "Parrot_push_p_n",
@@ -8323,7 +8346,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 647 */
+  { /* 649 */
     "push",
     "push_p_nc",
     "Parrot_push_p_nc",
@@ -8334,7 +8357,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 648 */
+  { /* 650 */
     "push",
     "push_p_s",
     "Parrot_push_p_s",
@@ -8345,7 +8368,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 649 */
+  { /* 651 */
     "push",
     "push_p_sc",
     "Parrot_push_p_sc",
@@ -8356,7 +8379,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 650 */
+  { /* 652 */
     "push",
     "push_p_p",
     "Parrot_push_p_p",
@@ -8367,7 +8390,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 651 */
+  { /* 653 */
     "pop",
     "pop_i_p",
     "Parrot_pop_i_p",
@@ -8378,7 +8401,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 652 */
+  { /* 654 */
     "pop",
     "pop_n_p",
     "Parrot_pop_n_p",
@@ -8389,7 +8412,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 653 */
+  { /* 655 */
     "pop",
     "pop_s_p",
     "Parrot_pop_s_p",
@@ -8400,7 +8423,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 654 */
+  { /* 656 */
     "pop",
     "pop_p_p",
     "Parrot_pop_p_p",
@@ -8411,7 +8434,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 655 */
+  { /* 657 */
     "unshift",
     "unshift_p_i",
     "Parrot_unshift_p_i",
@@ -8422,7 +8445,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 656 */
+  { /* 658 */
     "unshift",
     "unshift_p_ic",
     "Parrot_unshift_p_ic",
@@ -8433,7 +8456,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 657 */
+  { /* 659 */
     "unshift",
     "unshift_p_n",
     "Parrot_unshift_p_n",
@@ -8444,7 +8467,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 658 */
+  { /* 660 */
     "unshift",
     "unshift_p_nc",
     "Parrot_unshift_p_nc",
@@ -8455,7 +8478,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 659 */
+  { /* 661 */
     "unshift",
     "unshift_p_s",
     "Parrot_unshift_p_s",
@@ -8466,7 +8489,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 660 */
+  { /* 662 */
     "unshift",
     "unshift_p_sc",
     "Parrot_unshift_p_sc",
@@ -8477,7 +8500,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 661 */
+  { /* 663 */
     "unshift",
     "unshift_p_p",
     "Parrot_unshift_p_p",
@@ -8488,7 +8511,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 662 */
+  { /* 664 */
     "shift",
     "shift_i_p",
     "Parrot_shift_i_p",
@@ -8499,7 +8522,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 663 */
+  { /* 665 */
     "shift",
     "shift_n_p",
     "Parrot_shift_n_p",
@@ -8510,7 +8533,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 664 */
+  { /* 666 */
     "shift",
     "shift_s_p",
     "Parrot_shift_s_p",
@@ -8521,7 +8544,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 665 */
+  { /* 667 */
     "shift",
     "shift_p_p",
     "Parrot_shift_p_p",
@@ -8532,7 +8555,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 666 */
+  { /* 668 */
     "splice",
     "splice_p_p_i_i",
     "Parrot_splice_p_p_i_i",
@@ -8543,7 +8566,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 667 */
+  { /* 669 */
     "splice",
     "splice_p_p_ic_i",
     "Parrot_splice_p_p_ic_i",
@@ -8554,7 +8577,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 668 */
+  { /* 670 */
     "splice",
     "splice_p_p_i_ic",
     "Parrot_splice_p_p_i_ic",
@@ -8565,7 +8588,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 669 */
+  { /* 671 */
     "splice",
     "splice_p_p_ic_ic",
     "Parrot_splice_p_p_ic_ic",
@@ -8576,7 +8599,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 670 */
+  { /* 672 */
     "setprop",
     "setprop_p_s_p",
     "Parrot_setprop_p_s_p",
@@ -8587,7 +8610,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 671 */
+  { /* 673 */
     "setprop",
     "setprop_p_sc_p",
     "Parrot_setprop_p_sc_p",
@@ -8598,7 +8621,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 672 */
+  { /* 674 */
     "getprop",
     "getprop_p_s_p",
     "Parrot_getprop_p_s_p",
@@ -8609,7 +8632,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 673 */
+  { /* 675 */
     "getprop",
     "getprop_p_sc_p",
     "Parrot_getprop_p_sc_p",
@@ -8620,7 +8643,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 674 */
+  { /* 676 */
     "delprop",
     "delprop_p_s",
     "Parrot_delprop_p_s",
@@ -8631,7 +8654,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 675 */
+  { /* 677 */
     "delprop",
     "delprop_p_sc",
     "Parrot_delprop_p_sc",
@@ -8642,7 +8665,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 676 */
+  { /* 678 */
     "prophash",
     "prophash_p_p",
     "Parrot_prophash_p_p",
@@ -8653,7 +8676,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 677 */
+  { /* 679 */
     "freeze",
     "freeze_s_p",
     "Parrot_freeze_s_p",
@@ -8664,7 +8687,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 678 */
+  { /* 680 */
     "thaw",
     "thaw_p_s",
     "Parrot_thaw_p_s",
@@ -8675,7 +8698,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 679 */
+  { /* 681 */
     "thaw",
     "thaw_p_sc",
     "Parrot_thaw_p_sc",
@@ -8686,7 +8709,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 680 */
+  { /* 682 */
     "add_multi",
     "add_multi_s_s_p",
     "Parrot_add_multi_s_s_p",
@@ -8697,7 +8720,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 681 */
+  { /* 683 */
     "add_multi",
     "add_multi_sc_s_p",
     "Parrot_add_multi_sc_s_p",
@@ -8708,7 +8731,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 682 */
+  { /* 684 */
     "add_multi",
     "add_multi_s_sc_p",
     "Parrot_add_multi_s_sc_p",
@@ -8719,7 +8742,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 683 */
+  { /* 685 */
     "add_multi",
     "add_multi_sc_sc_p",
     "Parrot_add_multi_sc_sc_p",
@@ -8730,7 +8753,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 684 */
+  { /* 686 */
     "find_multi",
     "find_multi_p_s_s",
     "Parrot_find_multi_p_s_s",
@@ -8741,7 +8764,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 685 */
+  { /* 687 */
     "find_multi",
     "find_multi_p_sc_s",
     "Parrot_find_multi_p_sc_s",
@@ -8752,7 +8775,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 686 */
+  { /* 688 */
     "find_multi",
     "find_multi_p_s_sc",
     "Parrot_find_multi_p_s_sc",
@@ -8763,7 +8786,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 687 */
+  { /* 689 */
     "find_multi",
     "find_multi_p_sc_sc",
     "Parrot_find_multi_p_sc_sc",
@@ -8774,7 +8797,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 688 */
+  { /* 690 */
     "register",
     "register_p",
     "Parrot_register_p",
@@ -8785,7 +8808,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 689 */
+  { /* 691 */
     "unregister",
     "unregister_p",
     "Parrot_unregister_p",
@@ -8796,7 +8819,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 690 */
+  { /* 692 */
     "box",
     "box_p_i",
     "Parrot_box_p_i",
@@ -8807,7 +8830,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 691 */
+  { /* 693 */
     "box",
     "box_p_ic",
     "Parrot_box_p_ic",
@@ -8818,7 +8841,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 692 */
+  { /* 694 */
     "box",
     "box_p_n",
     "Parrot_box_p_n",
@@ -8829,7 +8852,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 693 */
+  { /* 695 */
     "box",
     "box_p_nc",
     "Parrot_box_p_nc",
@@ -8840,7 +8863,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 694 */
+  { /* 696 */
     "box",
     "box_p_s",
     "Parrot_box_p_s",
@@ -8851,7 +8874,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 695 */
+  { /* 697 */
     "box",
     "box_p_sc",
     "Parrot_box_p_sc",
@@ -8862,7 +8885,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 696 */
+  { /* 698 */
     "iter",
     "iter_p_p",
     "Parrot_iter_p_p",
@@ -8873,7 +8896,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 697 */
+  { /* 699 */
     "morph",
     "morph_p_p",
     "Parrot_morph_p_p",
@@ -8884,7 +8907,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 698 */
+  { /* 700 */
     "morph",
     "morph_p_pc",
     "Parrot_morph_p_pc",
@@ -8895,7 +8918,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 699 */
+  { /* 701 */
     "clone",
     "clone_s_s",
     "Parrot_clone_s_s",
@@ -8906,7 +8929,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 700 */
+  { /* 702 */
     "clone",
     "clone_s_sc",
     "Parrot_clone_s_sc",
@@ -8917,7 +8940,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 701 */
+  { /* 703 */
     "set",
     "set_i_i",
     "Parrot_set_i_i",
@@ -8928,7 +8951,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 702 */
+  { /* 704 */
     "set",
     "set_i_ic",
     "Parrot_set_i_ic",
@@ -8939,7 +8962,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 703 */
+  { /* 705 */
     "set",
     "set_i_n",
     "Parrot_set_i_n",
@@ -8950,7 +8973,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 704 */
+  { /* 706 */
     "set",
     "set_i_nc",
     "Parrot_set_i_nc",
@@ -8961,7 +8984,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 705 */
+  { /* 707 */
     "set",
     "set_i_s",
     "Parrot_set_i_s",
@@ -8972,7 +8995,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 706 */
+  { /* 708 */
     "set",
     "set_i_sc",
     "Parrot_set_i_sc",
@@ -8983,7 +9006,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 707 */
+  { /* 709 */
     "set",
     "set_n_n",
     "Parrot_set_n_n",
@@ -8994,7 +9017,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 708 */
+  { /* 710 */
     "set",
     "set_n_nc",
     "Parrot_set_n_nc",
@@ -9005,7 +9028,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 709 */
+  { /* 711 */
     "set",
     "set_n_i",
     "Parrot_set_n_i",
@@ -9016,7 +9039,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 710 */
+  { /* 712 */
     "set",
     "set_n_ic",
     "Parrot_set_n_ic",
@@ -9027,7 +9050,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 711 */
+  { /* 713 */
     "set",
     "set_n_s",
     "Parrot_set_n_s",
@@ -9038,7 +9061,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 712 */
+  { /* 714 */
     "set",
     "set_n_sc",
     "Parrot_set_n_sc",
@@ -9049,7 +9072,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 713 */
+  { /* 715 */
     "set",
     "set_n_p",
     "Parrot_set_n_p",
@@ -9060,7 +9083,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 714 */
+  { /* 716 */
     "set",
     "set_s_p",
     "Parrot_set_s_p",
@@ -9071,7 +9094,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 715 */
+  { /* 717 */
     "set",
     "set_s_s",
     "Parrot_set_s_s",
@@ -9082,7 +9105,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 716 */
+  { /* 718 */
     "set",
     "set_s_sc",
     "Parrot_set_s_sc",
@@ -9093,7 +9116,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 717 */
+  { /* 719 */
     "set",
     "set_s_i",
     "Parrot_set_s_i",
@@ -9104,7 +9127,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 718 */
+  { /* 720 */
     "set",
     "set_s_ic",
     "Parrot_set_s_ic",
@@ -9115,7 +9138,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 719 */
+  { /* 721 */
     "set",
     "set_s_n",
     "Parrot_set_s_n",
@@ -9126,7 +9149,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 720 */
+  { /* 722 */
     "set",
     "set_s_nc",
     "Parrot_set_s_nc",
@@ -9137,7 +9160,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 721 */
+  { /* 723 */
     "set",
     "set_p_pc",
     "Parrot_set_p_pc",
@@ -9148,7 +9171,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 722 */
+  { /* 724 */
     "set",
     "set_p_p",
     "Parrot_set_p_p",
@@ -9159,7 +9182,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 723 */
+  { /* 725 */
     "set",
     "set_p_i",
     "Parrot_set_p_i",
@@ -9170,7 +9193,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 724 */
+  { /* 726 */
     "set",
     "set_p_ic",
     "Parrot_set_p_ic",
@@ -9181,7 +9204,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 725 */
+  { /* 727 */
     "set",
     "set_p_n",
     "Parrot_set_p_n",
@@ -9192,7 +9215,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 726 */
+  { /* 728 */
     "set",
     "set_p_nc",
     "Parrot_set_p_nc",
@@ -9203,7 +9226,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 727 */
+  { /* 729 */
     "set",
     "set_p_s",
     "Parrot_set_p_s",
@@ -9214,7 +9237,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 728 */
+  { /* 730 */
     "set",
     "set_p_sc",
     "Parrot_set_p_sc",
@@ -9225,7 +9248,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 729 */
+  { /* 731 */
     "set",
     "set_i_p",
     "Parrot_set_i_p",
@@ -9236,7 +9259,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 730 */
+  { /* 732 */
     "assign",
     "assign_p_p",
     "Parrot_assign_p_p",
@@ -9247,7 +9270,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 731 */
+  { /* 733 */
     "assign",
     "assign_p_i",
     "Parrot_assign_p_i",
@@ -9258,7 +9281,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 732 */
+  { /* 734 */
     "assign",
     "assign_p_ic",
     "Parrot_assign_p_ic",
@@ -9269,7 +9292,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 733 */
+  { /* 735 */
     "assign",
     "assign_p_n",
     "Parrot_assign_p_n",
@@ -9280,7 +9303,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 734 */
+  { /* 736 */
     "assign",
     "assign_p_nc",
     "Parrot_assign_p_nc",
@@ -9291,7 +9314,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 735 */
+  { /* 737 */
     "assign",
     "assign_p_s",
     "Parrot_assign_p_s",
@@ -9302,7 +9325,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 736 */
+  { /* 738 */
     "assign",
     "assign_p_sc",
     "Parrot_assign_p_sc",
@@ -9313,7 +9336,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 737 */
+  { /* 739 */
     "assign",
     "assign_s_s",
     "Parrot_assign_s_s",
@@ -9324,7 +9347,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 738 */
+  { /* 740 */
     "assign",
     "assign_s_sc",
     "Parrot_assign_s_sc",
@@ -9335,7 +9358,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 739 */
+  { /* 741 */
     "setref",
     "setref_p_p",
     "Parrot_setref_p_p",
@@ -9346,7 +9369,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 740 */
+  { /* 742 */
     "deref",
     "deref_p_p",
     "Parrot_deref_p_p",
@@ -9357,7 +9380,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 741 */
+  { /* 743 */
     "set",
     "set_p_ki_i",
     "Parrot_set_p_ki_i",
@@ -9368,7 +9391,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 742 */
+  { /* 744 */
     "set",
     "set_p_kic_i",
     "Parrot_set_p_kic_i",
@@ -9379,7 +9402,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 743 */
+  { /* 745 */
     "set",
     "set_p_ki_ic",
     "Parrot_set_p_ki_ic",
@@ -9390,7 +9413,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 744 */
+  { /* 746 */
     "set",
     "set_p_kic_ic",
     "Parrot_set_p_kic_ic",
@@ -9401,7 +9424,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 745 */
+  { /* 747 */
     "set",
     "set_p_ki_n",
     "Parrot_set_p_ki_n",
@@ -9412,7 +9435,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 746 */
+  { /* 748 */
     "set",
     "set_p_kic_n",
     "Parrot_set_p_kic_n",
@@ -9423,7 +9446,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 747 */
+  { /* 749 */
     "set",
     "set_p_ki_nc",
     "Parrot_set_p_ki_nc",
@@ -9434,7 +9457,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 748 */
+  { /* 750 */
     "set",
     "set_p_kic_nc",
     "Parrot_set_p_kic_nc",
@@ -9445,7 +9468,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 749 */
+  { /* 751 */
     "set",
     "set_p_ki_s",
     "Parrot_set_p_ki_s",
@@ -9456,7 +9479,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 750 */
+  { /* 752 */
     "set",
     "set_p_kic_s",
     "Parrot_set_p_kic_s",
@@ -9467,7 +9490,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 751 */
+  { /* 753 */
     "set",
     "set_p_ki_sc",
     "Parrot_set_p_ki_sc",
@@ -9478,7 +9501,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 752 */
+  { /* 754 */
     "set",
     "set_p_kic_sc",
     "Parrot_set_p_kic_sc",
@@ -9489,7 +9512,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 753 */
+  { /* 755 */
     "set",
     "set_p_ki_p",
     "Parrot_set_p_ki_p",
@@ -9500,7 +9523,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 754 */
+  { /* 756 */
     "set",
     "set_p_kic_p",
     "Parrot_set_p_kic_p",
@@ -9511,7 +9534,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 755 */
+  { /* 757 */
     "set",
     "set_i_p_ki",
     "Parrot_set_i_p_ki",
@@ -9522,7 +9545,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 756 */
+  { /* 758 */
     "set",
     "set_i_p_kic",
     "Parrot_set_i_p_kic",
@@ -9533,7 +9556,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 757 */
+  { /* 759 */
     "set",
     "set_n_p_ki",
     "Parrot_set_n_p_ki",
@@ -9544,7 +9567,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 758 */
+  { /* 760 */
     "set",
     "set_n_p_kic",
     "Parrot_set_n_p_kic",
@@ -9555,7 +9578,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 759 */
+  { /* 761 */
     "set",
     "set_s_p_ki",
     "Parrot_set_s_p_ki",
@@ -9566,7 +9589,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 760 */
+  { /* 762 */
     "set",
     "set_s_p_kic",
     "Parrot_set_s_p_kic",
@@ -9577,7 +9600,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 761 */
+  { /* 763 */
     "set",
     "set_p_p_ki",
     "Parrot_set_p_p_ki",
@@ -9588,7 +9611,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 762 */
+  { /* 764 */
     "set",
     "set_p_p_kic",
     "Parrot_set_p_p_kic",
@@ -9599,7 +9622,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 763 */
+  { /* 765 */
     "set",
     "set_p_k_i",
     "Parrot_set_p_k_i",
@@ -9610,7 +9633,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 764 */
+  { /* 766 */
     "set",
     "set_p_kc_i",
     "Parrot_set_p_kc_i",
@@ -9621,7 +9644,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 765 */
+  { /* 767 */
     "set",
     "set_p_k_ic",
     "Parrot_set_p_k_ic",
@@ -9632,7 +9655,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 766 */
+  { /* 768 */
     "set",
     "set_p_kc_ic",
     "Parrot_set_p_kc_ic",
@@ -9643,7 +9666,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 767 */
+  { /* 769 */
     "set",
     "set_p_k_n",
     "Parrot_set_p_k_n",
@@ -9654,7 +9677,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 768 */
+  { /* 770 */
     "set",
     "set_p_kc_n",
     "Parrot_set_p_kc_n",
@@ -9665,7 +9688,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 769 */
+  { /* 771 */
     "set",
     "set_p_k_nc",
     "Parrot_set_p_k_nc",
@@ -9676,7 +9699,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 770 */
+  { /* 772 */
     "set",
     "set_p_kc_nc",
     "Parrot_set_p_kc_nc",
@@ -9687,7 +9710,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 771 */
+  { /* 773 */
     "set",
     "set_p_k_s",
     "Parrot_set_p_k_s",
@@ -9698,7 +9721,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 772 */
+  { /* 774 */
     "set",
     "set_p_kc_s",
     "Parrot_set_p_kc_s",
@@ -9709,7 +9732,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 773 */
+  { /* 775 */
     "set",
     "set_p_k_sc",
     "Parrot_set_p_k_sc",
@@ -9720,7 +9743,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 774 */
+  { /* 776 */
     "set",
     "set_p_kc_sc",
     "Parrot_set_p_kc_sc",
@@ -9731,7 +9754,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 775 */
+  { /* 777 */
     "set",
     "set_p_k_p",
     "Parrot_set_p_k_p",
@@ -9742,7 +9765,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 776 */
+  { /* 778 */
     "set",
     "set_p_kc_p",
     "Parrot_set_p_kc_p",
@@ -9753,7 +9776,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 777 */
+  { /* 779 */
     "set",
     "set_i_p_k",
     "Parrot_set_i_p_k",
@@ -9764,7 +9787,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 778 */
+  { /* 780 */
     "set",
     "set_i_p_kc",
     "Parrot_set_i_p_kc",
@@ -9775,7 +9798,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 779 */
+  { /* 781 */
     "set",
     "set_n_p_k",
     "Parrot_set_n_p_k",
@@ -9786,7 +9809,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 780 */
+  { /* 782 */
     "set",
     "set_n_p_kc",
     "Parrot_set_n_p_kc",
@@ -9797,7 +9820,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 781 */
+  { /* 783 */
     "set",
     "set_s_p_k",
     "Parrot_set_s_p_k",
@@ -9808,7 +9831,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 782 */
+  { /* 784 */
     "set",
     "set_s_p_kc",
     "Parrot_set_s_p_kc",
@@ -9819,7 +9842,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 783 */
+  { /* 785 */
     "set",
     "set_p_p_k",
     "Parrot_set_p_p_k",
@@ -9830,7 +9853,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 784 */
+  { /* 786 */
     "set",
     "set_p_p_kc",
     "Parrot_set_p_p_kc",
@@ -9841,7 +9864,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 785 */
+  { /* 787 */
     "clone",
     "clone_p_p",
     "Parrot_clone_p_p",
@@ -9852,7 +9875,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 786 */
+  { /* 788 */
     "clone",
     "clone_p_p_p",
     "Parrot_clone_p_p_p",
@@ -9863,7 +9886,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 787 */
+  { /* 789 */
     "clone",
     "clone_p_p_pc",
     "Parrot_clone_p_p_pc",
@@ -9874,7 +9897,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 788 */
+  { /* 790 */
     "copy",
     "copy_p_p",
     "Parrot_copy_p_p",
@@ -9885,7 +9908,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 789 */
+  { /* 791 */
     "null",
     "null_s",
     "Parrot_null_s",
@@ -9896,7 +9919,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 790 */
+  { /* 792 */
     "null",
     "null_i",
     "Parrot_null_i",
@@ -9907,7 +9930,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 791 */
+  { /* 793 */
     "null",
     "null_p",
     "Parrot_null_p",
@@ -9918,7 +9941,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 792 */
+  { /* 794 */
     "null",
     "null_n",
     "Parrot_null_n",
@@ -9929,7 +9952,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 793 */
+  { /* 795 */
     "ord",
     "ord_i_s",
     "Parrot_ord_i_s",
@@ -9940,7 +9963,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 794 */
+  { /* 796 */
     "ord",
     "ord_i_sc",
     "Parrot_ord_i_sc",
@@ -9951,7 +9974,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 795 */
+  { /* 797 */
     "ord",
     "ord_i_s_i",
     "Parrot_ord_i_s_i",
@@ -9962,7 +9985,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 796 */
+  { /* 798 */
     "ord",
     "ord_i_sc_i",
     "Parrot_ord_i_sc_i",
@@ -9973,7 +9996,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 797 */
+  { /* 799 */
     "ord",
     "ord_i_s_ic",
     "Parrot_ord_i_s_ic",
@@ -9984,7 +10007,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 798 */
+  { /* 800 */
     "ord",
     "ord_i_sc_ic",
     "Parrot_ord_i_sc_ic",
@@ -9995,7 +10018,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 799 */
+  { /* 801 */
     "chr",
     "chr_s_i",
     "Parrot_chr_s_i",
@@ -10006,7 +10029,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 800 */
+  { /* 802 */
     "chr",
     "chr_s_ic",
     "Parrot_chr_s_ic",
@@ -10017,7 +10040,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 801 */
+  { /* 803 */
     "chopn",
     "chopn_s_s_i",
     "Parrot_chopn_s_s_i",
@@ -10028,7 +10051,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 802 */
+  { /* 804 */
     "chopn",
     "chopn_s_sc_i",
     "Parrot_chopn_s_sc_i",
@@ -10039,7 +10062,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 803 */
+  { /* 805 */
     "chopn",
     "chopn_s_s_ic",
     "Parrot_chopn_s_s_ic",
@@ -10050,7 +10073,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 804 */
+  { /* 806 */
     "chopn",
     "chopn_s_sc_ic",
     "Parrot_chopn_s_sc_ic",
@@ -10061,7 +10084,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 805 */
+  { /* 807 */
     "concat",
     "concat_p_p",
     "Parrot_concat_p_p",
@@ -10072,7 +10095,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 806 */
+  { /* 808 */
     "concat",
     "concat_p_s",
     "Parrot_concat_p_s",
@@ -10083,7 +10106,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 807 */
+  { /* 809 */
     "concat",
     "concat_p_sc",
     "Parrot_concat_p_sc",
@@ -10094,7 +10117,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 808 */
+  { /* 810 */
     "concat",
     "concat_s_s_s",
     "Parrot_concat_s_s_s",
@@ -10105,7 +10128,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 809 */
+  { /* 811 */
     "concat",
     "concat_s_sc_s",
     "Parrot_concat_s_sc_s",
@@ -10116,7 +10139,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 810 */
+  { /* 812 */
     "concat",
     "concat_s_s_sc",
     "Parrot_concat_s_s_sc",
@@ -10127,7 +10150,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 811 */
+  { /* 813 */
     "concat",
     "concat_p_p_s",
     "Parrot_concat_p_p_s",
@@ -10138,7 +10161,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 812 */
+  { /* 814 */
     "concat",
     "concat_p_p_sc",
     "Parrot_concat_p_p_sc",
@@ -10149,7 +10172,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 813 */
+  { /* 815 */
     "concat",
     "concat_p_p_p",
     "Parrot_concat_p_p_p",
@@ -10160,7 +10183,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 814 */
+  { /* 816 */
     "repeat",
     "repeat_s_s_i",
     "Parrot_repeat_s_s_i",
@@ -10171,7 +10194,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 815 */
+  { /* 817 */
     "repeat",
     "repeat_s_sc_i",
     "Parrot_repeat_s_sc_i",
@@ -10182,7 +10205,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 816 */
+  { /* 818 */
     "repeat",
     "repeat_s_s_ic",
     "Parrot_repeat_s_s_ic",
@@ -10193,7 +10216,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 817 */
+  { /* 819 */
     "repeat",
     "repeat_s_sc_ic",
     "Parrot_repeat_s_sc_ic",
@@ -10204,7 +10227,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 818 */
+  { /* 820 */
     "repeat",
     "repeat_p_p_i",
     "Parrot_repeat_p_p_i",
@@ -10215,7 +10238,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 819 */
+  { /* 821 */
     "repeat",
     "repeat_p_p_ic",
     "Parrot_repeat_p_p_ic",
@@ -10226,7 +10249,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 820 */
+  { /* 822 */
     "repeat",
     "repeat_p_p_p",
     "Parrot_repeat_p_p_p",
@@ -10237,7 +10260,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 821 */
+  { /* 823 */
     "repeat",
     "repeat_p_i",
     "Parrot_repeat_p_i",
@@ -10248,7 +10271,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 822 */
+  { /* 824 */
     "repeat",
     "repeat_p_ic",
     "Parrot_repeat_p_ic",
@@ -10259,7 +10282,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 823 */
+  { /* 825 */
     "repeat",
     "repeat_p_p",
     "Parrot_repeat_p_p",
@@ -10270,7 +10293,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 824 */
+  { /* 826 */
     "length",
     "length_i_s",
     "Parrot_length_i_s",
@@ -10281,7 +10304,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 825 */
+  { /* 827 */
     "length",
     "length_i_sc",
     "Parrot_length_i_sc",
@@ -10292,7 +10315,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 826 */
+  { /* 828 */
     "bytelength",
     "bytelength_i_s",
     "Parrot_bytelength_i_s",
@@ -10303,7 +10326,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 827 */
+  { /* 829 */
     "bytelength",
     "bytelength_i_sc",
     "Parrot_bytelength_i_sc",
@@ -10314,7 +10337,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 828 */
+  { /* 830 */
     "pin",
     "pin_s",
     "Parrot_pin_s",
@@ -10325,7 +10348,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 829 */
+  { /* 831 */
     "unpin",
     "unpin_s",
     "Parrot_unpin_s",
@@ -10336,7 +10359,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 830 */
+  { /* 832 */
     "substr",
     "substr_s_s_i",
     "Parrot_substr_s_s_i",
@@ -10347,7 +10370,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 831 */
+  { /* 833 */
     "substr",
     "substr_s_sc_i",
     "Parrot_substr_s_sc_i",
@@ -10358,7 +10381,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 832 */
+  { /* 834 */
     "substr",
     "substr_s_s_ic",
     "Parrot_substr_s_s_ic",
@@ -10369,7 +10392,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 833 */
+  { /* 835 */
     "substr",
     "substr_s_sc_ic",
     "Parrot_substr_s_sc_ic",
@@ -10380,7 +10403,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 834 */
+  { /* 836 */
     "substr",
     "substr_s_s_i_i",
     "Parrot_substr_s_s_i_i",
@@ -10391,7 +10414,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 835 */
+  { /* 837 */
     "substr",
     "substr_s_sc_i_i",
     "Parrot_substr_s_sc_i_i",
@@ -10402,7 +10425,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 836 */
+  { /* 838 */
     "substr",
     "substr_s_s_ic_i",
     "Parrot_substr_s_s_ic_i",
@@ -10413,7 +10436,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 837 */
+  { /* 839 */
     "substr",
     "substr_s_sc_ic_i",
     "Parrot_substr_s_sc_ic_i",
@@ -10424,7 +10447,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 838 */
+  { /* 840 */
     "substr",
     "substr_s_s_i_ic",
     "Parrot_substr_s_s_i_ic",
@@ -10435,7 +10458,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 839 */
+  { /* 841 */
     "substr",
     "substr_s_sc_i_ic",
     "Parrot_substr_s_sc_i_ic",
@@ -10446,7 +10469,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 840 */
+  { /* 842 */
     "substr",
     "substr_s_s_ic_ic",
     "Parrot_substr_s_s_ic_ic",
@@ -10457,7 +10480,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 841 */
+  { /* 843 */
     "substr",
     "substr_s_sc_ic_ic",
     "Parrot_substr_s_sc_ic_ic",
@@ -10468,7 +10491,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 842 */
+  { /* 844 */
     "substr",
     "substr_s_p_i_i",
     "Parrot_substr_s_p_i_i",
@@ -10479,7 +10502,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 843 */
+  { /* 845 */
     "substr",
     "substr_s_p_ic_i",
     "Parrot_substr_s_p_ic_i",
@@ -10490,7 +10513,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 844 */
+  { /* 846 */
     "substr",
     "substr_s_p_i_ic",
     "Parrot_substr_s_p_i_ic",
@@ -10501,7 +10524,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 845 */
+  { /* 847 */
     "substr",
     "substr_s_p_ic_ic",
     "Parrot_substr_s_p_ic_ic",
@@ -10512,7 +10535,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 846 */
+  { /* 848 */
     "replace",
     "replace_s_s_i_i_s",
     "Parrot_replace_s_s_i_i_s",
@@ -10523,7 +10546,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 847 */
+  { /* 849 */
     "replace",
     "replace_s_sc_i_i_s",
     "Parrot_replace_s_sc_i_i_s",
@@ -10534,7 +10557,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 848 */
+  { /* 850 */
     "replace",
     "replace_s_s_ic_i_s",
     "Parrot_replace_s_s_ic_i_s",
@@ -10545,7 +10568,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 849 */
+  { /* 851 */
     "replace",
     "replace_s_sc_ic_i_s",
     "Parrot_replace_s_sc_ic_i_s",
@@ -10556,7 +10579,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 850 */
+  { /* 852 */
     "replace",
     "replace_s_s_i_ic_s",
     "Parrot_replace_s_s_i_ic_s",
@@ -10567,7 +10590,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 851 */
+  { /* 853 */
     "replace",
     "replace_s_sc_i_ic_s",
     "Parrot_replace_s_sc_i_ic_s",
@@ -10578,7 +10601,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 852 */
+  { /* 854 */
     "replace",
     "replace_s_s_ic_ic_s",
     "Parrot_replace_s_s_ic_ic_s",
@@ -10589,7 +10612,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 853 */
+  { /* 855 */
     "replace",
     "replace_s_sc_ic_ic_s",
     "Parrot_replace_s_sc_ic_ic_s",
@@ -10600,7 +10623,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 854 */
+  { /* 856 */
     "replace",
     "replace_s_s_i_i_sc",
     "Parrot_replace_s_s_i_i_sc",
@@ -10611,7 +10634,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 855 */
+  { /* 857 */
     "replace",
     "replace_s_sc_i_i_sc",
     "Parrot_replace_s_sc_i_i_sc",
@@ -10622,7 +10645,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 856 */
+  { /* 858 */
     "replace",
     "replace_s_s_ic_i_sc",
     "Parrot_replace_s_s_ic_i_sc",
@@ -10633,7 +10656,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 857 */
+  { /* 859 */
     "replace",
     "replace_s_sc_ic_i_sc",
     "Parrot_replace_s_sc_ic_i_sc",
@@ -10644,7 +10667,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 858 */
+  { /* 860 */
     "replace",
     "replace_s_s_i_ic_sc",
     "Parrot_replace_s_s_i_ic_sc",
@@ -10655,7 +10678,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 859 */
+  { /* 861 */
     "replace",
     "replace_s_sc_i_ic_sc",
     "Parrot_replace_s_sc_i_ic_sc",
@@ -10666,7 +10689,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 860 */
+  { /* 862 */
     "replace",
     "replace_s_s_ic_ic_sc",
     "Parrot_replace_s_s_ic_ic_sc",
@@ -10677,7 +10700,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 861 */
+  { /* 863 */
     "replace",
     "replace_s_sc_ic_ic_sc",
     "Parrot_replace_s_sc_ic_ic_sc",
@@ -10688,7 +10711,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 862 */
+  { /* 864 */
     "index",
     "index_i_s_s",
     "Parrot_index_i_s_s",
@@ -10699,7 +10722,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 863 */
+  { /* 865 */
     "index",
     "index_i_sc_s",
     "Parrot_index_i_sc_s",
@@ -10710,7 +10733,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 864 */
+  { /* 866 */
     "index",
     "index_i_s_sc",
     "Parrot_index_i_s_sc",
@@ -10721,7 +10744,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 865 */
+  { /* 867 */
     "index",
     "index_i_sc_sc",
     "Parrot_index_i_sc_sc",
@@ -10732,7 +10755,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 866 */
+  { /* 868 */
     "index",
     "index_i_s_s_i",
     "Parrot_index_i_s_s_i",
@@ -10743,7 +10766,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 867 */
+  { /* 869 */
     "index",
     "index_i_sc_s_i",
     "Parrot_index_i_sc_s_i",
@@ -10754,7 +10777,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 868 */
+  { /* 870 */
     "index",
     "index_i_s_sc_i",
     "Parrot_index_i_s_sc_i",
@@ -10765,7 +10788,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 869 */
+  { /* 871 */
     "index",
     "index_i_sc_sc_i",
     "Parrot_index_i_sc_sc_i",
@@ -10776,7 +10799,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 870 */
+  { /* 872 */
     "index",
     "index_i_s_s_ic",
     "Parrot_index_i_s_s_ic",
@@ -10787,7 +10810,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 871 */
+  { /* 873 */
     "index",
     "index_i_sc_s_ic",
     "Parrot_index_i_sc_s_ic",
@@ -10798,7 +10821,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 872 */
+  { /* 874 */
     "index",
     "index_i_s_sc_ic",
     "Parrot_index_i_s_sc_ic",
@@ -10809,7 +10832,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 873 */
+  { /* 875 */
     "index",
     "index_i_sc_sc_ic",
     "Parrot_index_i_sc_sc_ic",
@@ -10820,7 +10843,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 874 */
+  { /* 876 */
     "sprintf",
     "sprintf_s_s_p",
     "Parrot_sprintf_s_s_p",
@@ -10831,7 +10854,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 875 */
+  { /* 877 */
     "sprintf",
     "sprintf_s_sc_p",
     "Parrot_sprintf_s_sc_p",
@@ -10842,7 +10865,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 876 */
+  { /* 878 */
     "sprintf",
     "sprintf_p_p_p",
     "Parrot_sprintf_p_p_p",
@@ -10853,7 +10876,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 877 */
+  { /* 879 */
     "new",
     "new_s",
     "Parrot_new_s",
@@ -10864,7 +10887,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 878 */
+  { /* 880 */
     "new",
     "new_s_i",
     "Parrot_new_s_i",
@@ -10875,7 +10898,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 879 */
+  { /* 881 */
     "new",
     "new_s_ic",
     "Parrot_new_s_ic",
@@ -10886,7 +10909,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 880 */
+  { /* 882 */
     "stringinfo",
     "stringinfo_i_s_i",
     "Parrot_stringinfo_i_s_i",
@@ -10897,7 +10920,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 881 */
+  { /* 883 */
     "stringinfo",
     "stringinfo_i_sc_i",
     "Parrot_stringinfo_i_sc_i",
@@ -10908,7 +10931,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 882 */
+  { /* 884 */
     "stringinfo",
     "stringinfo_i_s_ic",
     "Parrot_stringinfo_i_s_ic",
@@ -10919,7 +10942,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 883 */
+  { /* 885 */
     "stringinfo",
     "stringinfo_i_sc_ic",
     "Parrot_stringinfo_i_sc_ic",
@@ -10930,7 +10953,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 884 */
+  { /* 886 */
     "upcase",
     "upcase_s_s",
     "Parrot_upcase_s_s",
@@ -10941,7 +10964,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 885 */
+  { /* 887 */
     "upcase",
     "upcase_s_sc",
     "Parrot_upcase_s_sc",
@@ -10952,7 +10975,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 886 */
+  { /* 888 */
     "downcase",
     "downcase_s_s",
     "Parrot_downcase_s_s",
@@ -10963,7 +10986,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 887 */
+  { /* 889 */
     "downcase",
     "downcase_s_sc",
     "Parrot_downcase_s_sc",
@@ -10974,7 +10997,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 888 */
+  { /* 890 */
     "titlecase",
     "titlecase_s_s",
     "Parrot_titlecase_s_s",
@@ -10985,7 +11008,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 889 */
+  { /* 891 */
     "titlecase",
     "titlecase_s_sc",
     "Parrot_titlecase_s_sc",
@@ -10996,7 +11019,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 890 */
+  { /* 892 */
     "join",
     "join_s_s_p",
     "Parrot_join_s_s_p",
@@ -11007,7 +11030,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 891 */
+  { /* 893 */
     "join",
     "join_s_sc_p",
     "Parrot_join_s_sc_p",
@@ -11018,7 +11041,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 892 */
+  { /* 894 */
     "split",
     "split_p_s_s",
     "Parrot_split_p_s_s",
@@ -11029,7 +11052,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 893 */
+  { /* 895 */
     "split",
     "split_p_sc_s",
     "Parrot_split_p_sc_s",
@@ -11040,7 +11063,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 894 */
+  { /* 896 */
     "split",
     "split_p_s_sc",
     "Parrot_split_p_s_sc",
@@ -11051,7 +11074,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 895 */
+  { /* 897 */
     "split",
     "split_p_sc_sc",
     "Parrot_split_p_sc_sc",
@@ -11062,7 +11085,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 896 */
+  { /* 898 */
     "encoding",
     "encoding_i_s",
     "Parrot_encoding_i_s",
@@ -11073,7 +11096,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 897 */
+  { /* 899 */
     "encoding",
     "encoding_i_sc",
     "Parrot_encoding_i_sc",
@@ -11084,7 +11107,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 898 */
+  { /* 900 */
     "encodingname",
     "encodingname_s_i",
     "Parrot_encodingname_s_i",
@@ -11095,7 +11118,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 899 */
+  { /* 901 */
     "encodingname",
     "encodingname_s_ic",
     "Parrot_encodingname_s_ic",
@@ -11106,7 +11129,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 900 */
+  { /* 902 */
     "find_encoding",
     "find_encoding_i_s",
     "Parrot_find_encoding_i_s",
@@ -11117,7 +11140,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 901 */
+  { /* 903 */
     "find_encoding",
     "find_encoding_i_sc",
     "Parrot_find_encoding_i_sc",
@@ -11128,7 +11151,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 902 */
+  { /* 904 */
     "trans_encoding",
     "trans_encoding_s_s_i",
     "Parrot_trans_encoding_s_s_i",
@@ -11139,7 +11162,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 903 */
+  { /* 905 */
     "trans_encoding",
     "trans_encoding_s_sc_i",
     "Parrot_trans_encoding_s_sc_i",
@@ -11150,7 +11173,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 904 */
+  { /* 906 */
     "trans_encoding",
     "trans_encoding_s_s_ic",
     "Parrot_trans_encoding_s_s_ic",
@@ -11161,7 +11184,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 905 */
+  { /* 907 */
     "trans_encoding",
     "trans_encoding_s_sc_ic",
     "Parrot_trans_encoding_s_sc_ic",
@@ -11172,7 +11195,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 906 */
+  { /* 908 */
     "is_cclass",
     "is_cclass_i_i_s_i",
     "Parrot_is_cclass_i_i_s_i",
@@ -11183,7 +11206,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 907 */
+  { /* 909 */
     "is_cclass",
     "is_cclass_i_ic_s_i",
     "Parrot_is_cclass_i_ic_s_i",
@@ -11194,7 +11217,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 908 */
+  { /* 910 */
     "is_cclass",
     "is_cclass_i_i_sc_i",
     "Parrot_is_cclass_i_i_sc_i",
@@ -11205,7 +11228,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 909 */
+  { /* 911 */
     "is_cclass",
     "is_cclass_i_ic_sc_i",
     "Parrot_is_cclass_i_ic_sc_i",
@@ -11216,7 +11239,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 910 */
+  { /* 912 */
     "is_cclass",
     "is_cclass_i_i_s_ic",
     "Parrot_is_cclass_i_i_s_ic",
@@ -11227,7 +11250,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 911 */
+  { /* 913 */
     "is_cclass",
     "is_cclass_i_ic_s_ic",
     "Parrot_is_cclass_i_ic_s_ic",
@@ -11238,7 +11261,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 912 */
+  { /* 914 */
     "is_cclass",
     "is_cclass_i_i_sc_ic",
     "Parrot_is_cclass_i_i_sc_ic",
@@ -11249,7 +11272,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 913 */
+  { /* 915 */
     "is_cclass",
     "is_cclass_i_ic_sc_ic",
     "Parrot_is_cclass_i_ic_sc_ic",
@@ -11260,7 +11283,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 914 */
+  { /* 916 */
     "find_cclass",
     "find_cclass_i_i_s_i_i",
     "Parrot_find_cclass_i_i_s_i_i",
@@ -11271,7 +11294,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 915 */
+  { /* 917 */
     "find_cclass",
     "find_cclass_i_ic_s_i_i",
     "Parrot_find_cclass_i_ic_s_i_i",
@@ -11282,7 +11305,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 916 */
+  { /* 918 */
     "find_cclass",
     "find_cclass_i_i_sc_i_i",
     "Parrot_find_cclass_i_i_sc_i_i",
@@ -11293,7 +11316,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 917 */
+  { /* 919 */
     "find_cclass",
     "find_cclass_i_ic_sc_i_i",
     "Parrot_find_cclass_i_ic_sc_i_i",
@@ -11304,7 +11327,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 918 */
+  { /* 920 */
     "find_cclass",
     "find_cclass_i_i_s_ic_i",
     "Parrot_find_cclass_i_i_s_ic_i",
@@ -11315,7 +11338,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 919 */
+  { /* 921 */
     "find_cclass",
     "find_cclass_i_ic_s_ic_i",
     "Parrot_find_cclass_i_ic_s_ic_i",
@@ -11326,7 +11349,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 920 */
+  { /* 922 */
     "find_cclass",
     "find_cclass_i_i_sc_ic_i",
     "Parrot_find_cclass_i_i_sc_ic_i",
@@ -11337,7 +11360,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 921 */
+  { /* 923 */
     "find_cclass",
     "find_cclass_i_ic_sc_ic_i",
     "Parrot_find_cclass_i_ic_sc_ic_i",
@@ -11348,7 +11371,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 922 */
+  { /* 924 */
     "find_cclass",
     "find_cclass_i_i_s_i_ic",
     "Parrot_find_cclass_i_i_s_i_ic",
@@ -11359,7 +11382,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 923 */
+  { /* 925 */
     "find_cclass",
     "find_cclass_i_ic_s_i_ic",
     "Parrot_find_cclass_i_ic_s_i_ic",
@@ -11370,7 +11393,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 924 */
+  { /* 926 */
     "find_cclass",
     "find_cclass_i_i_sc_i_ic",
     "Parrot_find_cclass_i_i_sc_i_ic",
@@ -11381,7 +11404,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 925 */
+  { /* 927 */
     "find_cclass",
     "find_cclass_i_ic_sc_i_ic",
     "Parrot_find_cclass_i_ic_sc_i_ic",
@@ -11392,7 +11415,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 926 */
+  { /* 928 */
     "find_cclass",
     "find_cclass_i_i_s_ic_ic",
     "Parrot_find_cclass_i_i_s_ic_ic",
@@ -11403,7 +11426,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 927 */
+  { /* 929 */
     "find_cclass",
     "find_cclass_i_ic_s_ic_ic",
     "Parrot_find_cclass_i_ic_s_ic_ic",
@@ -11414,7 +11437,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 928 */
+  { /* 930 */
     "find_cclass",
     "find_cclass_i_i_sc_ic_ic",
     "Parrot_find_cclass_i_i_sc_ic_ic",
@@ -11425,7 +11448,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 929 */
+  { /* 931 */
     "find_cclass",
     "find_cclass_i_ic_sc_ic_ic",
     "Parrot_find_cclass_i_ic_sc_ic_ic",
@@ -11436,7 +11459,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 930 */
+  { /* 932 */
     "find_not_cclass",
     "find_not_cclass_i_i_s_i_i",
     "Parrot_find_not_cclass_i_i_s_i_i",
@@ -11447,7 +11470,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 931 */
+  { /* 933 */
     "find_not_cclass",
     "find_not_cclass_i_ic_s_i_i",
     "Parrot_find_not_cclass_i_ic_s_i_i",
@@ -11458,7 +11481,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 932 */
+  { /* 934 */
     "find_not_cclass",
     "find_not_cclass_i_i_sc_i_i",
     "Parrot_find_not_cclass_i_i_sc_i_i",
@@ -11469,7 +11492,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 933 */
+  { /* 935 */
     "find_not_cclass",
     "find_not_cclass_i_ic_sc_i_i",
     "Parrot_find_not_cclass_i_ic_sc_i_i",
@@ -11480,7 +11503,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 934 */
+  { /* 936 */
     "find_not_cclass",
     "find_not_cclass_i_i_s_ic_i",
     "Parrot_find_not_cclass_i_i_s_ic_i",
@@ -11491,7 +11514,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 935 */
+  { /* 937 */
     "find_not_cclass",
     "find_not_cclass_i_ic_s_ic_i",
     "Parrot_find_not_cclass_i_ic_s_ic_i",
@@ -11502,7 +11525,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 936 */
+  { /* 938 */
     "find_not_cclass",
     "find_not_cclass_i_i_sc_ic_i",
     "Parrot_find_not_cclass_i_i_sc_ic_i",
@@ -11513,7 +11536,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 937 */
+  { /* 939 */
     "find_not_cclass",
     "find_not_cclass_i_ic_sc_ic_i",
     "Parrot_find_not_cclass_i_ic_sc_ic_i",
@@ -11524,7 +11547,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 938 */
+  { /* 940 */
     "find_not_cclass",
     "find_not_cclass_i_i_s_i_ic",
     "Parrot_find_not_cclass_i_i_s_i_ic",
@@ -11535,7 +11558,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 939 */
+  { /* 941 */
     "find_not_cclass",
     "find_not_cclass_i_ic_s_i_ic",
     "Parrot_find_not_cclass_i_ic_s_i_ic",
@@ -11546,7 +11569,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 940 */
+  { /* 942 */
     "find_not_cclass",
     "find_not_cclass_i_i_sc_i_ic",
     "Parrot_find_not_cclass_i_i_sc_i_ic",
@@ -11557,7 +11580,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 941 */
+  { /* 943 */
     "find_not_cclass",
     "find_not_cclass_i_ic_sc_i_ic",
     "Parrot_find_not_cclass_i_ic_sc_i_ic",
@@ -11568,7 +11591,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 942 */
+  { /* 944 */
     "find_not_cclass",
     "find_not_cclass_i_i_s_ic_ic",
     "Parrot_find_not_cclass_i_i_s_ic_ic",
@@ -11579,7 +11602,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 943 */
+  { /* 945 */
     "find_not_cclass",
     "find_not_cclass_i_ic_s_ic_ic",
     "Parrot_find_not_cclass_i_ic_s_ic_ic",
@@ -11590,7 +11613,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 944 */
+  { /* 946 */
     "find_not_cclass",
     "find_not_cclass_i_i_sc_ic_ic",
     "Parrot_find_not_cclass_i_i_sc_ic_ic",
@@ -11601,7 +11624,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 945 */
+  { /* 947 */
     "find_not_cclass",
     "find_not_cclass_i_ic_sc_ic_ic",
     "Parrot_find_not_cclass_i_ic_sc_ic_ic",
@@ -11612,7 +11635,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 946 */
+  { /* 948 */
     "escape",
     "escape_s_s",
     "Parrot_escape_s_s",
@@ -11623,7 +11646,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 947 */
+  { /* 949 */
     "compose",
     "compose_s_s",
     "Parrot_compose_s_s",
@@ -11634,7 +11657,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 948 */
+  { /* 950 */
     "compose",
     "compose_s_sc",
     "Parrot_compose_s_sc",
@@ -11645,7 +11668,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 949 */
+  { /* 951 */
     "find_codepoint",
     "find_codepoint_i_s",
     "Parrot_find_codepoint_i_s",
@@ -11656,7 +11679,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 950 */
+  { /* 952 */
     "find_codepoint",
     "find_codepoint_i_sc",
     "Parrot_find_codepoint_i_sc",
@@ -11667,7 +11690,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 951 */
+  { /* 953 */
     "spawnw",
     "spawnw_i_s",
     "Parrot_spawnw_i_s",
@@ -11678,7 +11701,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 952 */
+  { /* 954 */
     "spawnw",
     "spawnw_i_sc",
     "Parrot_spawnw_i_sc",
@@ -11689,7 +11712,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 953 */
+  { /* 955 */
     "spawnw",
     "spawnw_i_p",
     "Parrot_spawnw_i_p",
@@ -11700,7 +11723,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 954 */
+  { /* 956 */
     "err",
     "err_i",
     "Parrot_err_i",
@@ -11711,7 +11734,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 955 */
+  { /* 957 */
     "err",
     "err_s",
     "Parrot_err_s",
@@ -11722,7 +11745,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 956 */
+  { /* 958 */
     "err",
     "err_s_i",
     "Parrot_err_s_i",
@@ -11733,7 +11756,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 957 */
+  { /* 959 */
     "err",
     "err_s_ic",
     "Parrot_err_s_ic",
@@ -11744,7 +11767,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 958 */
+  { /* 960 */
     "time",
     "time_i",
     "Parrot_time_i",
@@ -11755,7 +11778,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 959 */
+  { /* 961 */
     "time",
     "time_n",
     "Parrot_time_n",
@@ -11766,7 +11789,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 960 */
+  { /* 962 */
     "sleep",
     "sleep_i",
     "Parrot_sleep_i",
@@ -11777,7 +11800,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 961 */
+  { /* 963 */
     "sleep",
     "sleep_ic",
     "Parrot_sleep_ic",
@@ -11788,7 +11811,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 962 */
+  { /* 964 */
     "sleep",
     "sleep_n",
     "Parrot_sleep_n",
@@ -11799,7 +11822,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 963 */
+  { /* 965 */
     "sleep",
     "sleep_nc",
     "Parrot_sleep_nc",
@@ -11810,7 +11833,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 964 */
+  { /* 966 */
     "store_lex",
     "store_lex_s_p",
     "Parrot_store_lex_s_p",
@@ -11821,7 +11844,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 965 */
+  { /* 967 */
     "store_lex",
     "store_lex_sc_p",
     "Parrot_store_lex_sc_p",
@@ -11832,7 +11855,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 966 */
+  { /* 968 */
     "store_lex",
     "store_lex_s_s",
     "Parrot_store_lex_s_s",
@@ -11843,7 +11866,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 967 */
+  { /* 969 */
     "store_lex",
     "store_lex_sc_s",
     "Parrot_store_lex_sc_s",
@@ -11854,7 +11877,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 968 */
+  { /* 970 */
     "store_lex",
     "store_lex_s_sc",
     "Parrot_store_lex_s_sc",
@@ -11865,7 +11888,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 969 */
+  { /* 971 */
     "store_lex",
     "store_lex_sc_sc",
     "Parrot_store_lex_sc_sc",
@@ -11876,7 +11899,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 970 */
+  { /* 972 */
     "store_lex",
     "store_lex_s_i",
     "Parrot_store_lex_s_i",
@@ -11887,7 +11910,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 971 */
+  { /* 973 */
     "store_lex",
     "store_lex_sc_i",
     "Parrot_store_lex_sc_i",
@@ -11898,7 +11921,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 972 */
+  { /* 974 */
     "store_lex",
     "store_lex_s_ic",
     "Parrot_store_lex_s_ic",
@@ -11909,7 +11932,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 973 */
+  { /* 975 */
     "store_lex",
     "store_lex_sc_ic",
     "Parrot_store_lex_sc_ic",
@@ -11920,7 +11943,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 974 */
+  { /* 976 */
     "store_lex",
     "store_lex_s_n",
     "Parrot_store_lex_s_n",
@@ -11931,7 +11954,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 975 */
+  { /* 977 */
     "store_lex",
     "store_lex_sc_n",
     "Parrot_store_lex_sc_n",
@@ -11942,7 +11965,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 976 */
+  { /* 978 */
     "store_lex",
     "store_lex_s_nc",
     "Parrot_store_lex_s_nc",
@@ -11953,7 +11976,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 977 */
+  { /* 979 */
     "store_lex",
     "store_lex_sc_nc",
     "Parrot_store_lex_sc_nc",
@@ -11964,7 +11987,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 978 */
+  { /* 980 */
     "store_dynamic_lex",
     "store_dynamic_lex_s_p",
     "Parrot_store_dynamic_lex_s_p",
@@ -11975,7 +11998,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 979 */
+  { /* 981 */
     "store_dynamic_lex",
     "store_dynamic_lex_sc_p",
     "Parrot_store_dynamic_lex_sc_p",
@@ -11986,7 +12009,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 980 */
+  { /* 982 */
     "find_lex",
     "find_lex_p_s",
     "Parrot_find_lex_p_s",
@@ -11997,7 +12020,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 981 */
+  { /* 983 */
     "find_lex",
     "find_lex_p_sc",
     "Parrot_find_lex_p_sc",
@@ -12008,7 +12031,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 982 */
+  { /* 984 */
     "find_lex",
     "find_lex_s_s",
     "Parrot_find_lex_s_s",
@@ -12019,7 +12042,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 983 */
+  { /* 985 */
     "find_lex",
     "find_lex_s_sc",
     "Parrot_find_lex_s_sc",
@@ -12030,7 +12053,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 984 */
+  { /* 986 */
     "find_lex",
     "find_lex_i_s",
     "Parrot_find_lex_i_s",
@@ -12041,7 +12064,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 985 */
+  { /* 987 */
     "find_lex",
     "find_lex_i_sc",
     "Parrot_find_lex_i_sc",
@@ -12052,7 +12075,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 986 */
+  { /* 988 */
     "find_lex",
     "find_lex_n_s",
     "Parrot_find_lex_n_s",
@@ -12063,7 +12086,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 987 */
+  { /* 989 */
     "find_lex",
     "find_lex_n_sc",
     "Parrot_find_lex_n_sc",
@@ -12074,7 +12097,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 988 */
+  { /* 990 */
     "find_dynamic_lex",
     "find_dynamic_lex_p_s",
     "Parrot_find_dynamic_lex_p_s",
@@ -12085,7 +12108,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 989 */
+  { /* 991 */
     "find_dynamic_lex",
     "find_dynamic_lex_p_sc",
     "Parrot_find_dynamic_lex_p_sc",
@@ -12096,7 +12119,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 990 */
+  { /* 992 */
     "find_caller_lex",
     "find_caller_lex_p_s",
     "Parrot_find_caller_lex_p_s",
@@ -12107,7 +12130,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 991 */
+  { /* 993 */
     "find_caller_lex",
     "find_caller_lex_p_sc",
     "Parrot_find_caller_lex_p_sc",
@@ -12118,7 +12141,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 992 */
+  { /* 994 */
     "get_namespace",
     "get_namespace_p",
     "Parrot_get_namespace_p",
@@ -12129,7 +12152,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 993 */
+  { /* 995 */
     "get_namespace",
     "get_namespace_p_p",
     "Parrot_get_namespace_p_p",
@@ -12140,7 +12163,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 994 */
+  { /* 996 */
     "get_namespace",
     "get_namespace_p_pc",
     "Parrot_get_namespace_p_pc",
@@ -12151,7 +12174,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 995 */
+  { /* 997 */
     "get_hll_namespace",
     "get_hll_namespace_p",
     "Parrot_get_hll_namespace_p",
@@ -12162,7 +12185,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 996 */
+  { /* 998 */
     "get_hll_namespace",
     "get_hll_namespace_p_p",
     "Parrot_get_hll_namespace_p_p",
@@ -12173,7 +12196,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 997 */
+  { /* 999 */
     "get_hll_namespace",
     "get_hll_namespace_p_pc",
     "Parrot_get_hll_namespace_p_pc",
@@ -12184,7 +12207,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 998 */
+  { /* 1000 */
     "get_root_namespace",
     "get_root_namespace_p",
     "Parrot_get_root_namespace_p",
@@ -12195,7 +12218,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 999 */
+  { /* 1001 */
     "get_root_namespace",
     "get_root_namespace_p_p",
     "Parrot_get_root_namespace_p_p",
@@ -12206,7 +12229,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1000 */
+  { /* 1002 */
     "get_root_namespace",
     "get_root_namespace_p_pc",
     "Parrot_get_root_namespace_p_pc",
@@ -12217,7 +12240,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1001 */
+  { /* 1003 */
     "get_global",
     "get_global_p_s",
     "Parrot_get_global_p_s",
@@ -12228,7 +12251,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1002 */
+  { /* 1004 */
     "get_global",
     "get_global_p_sc",
     "Parrot_get_global_p_sc",
@@ -12239,7 +12262,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1003 */
+  { /* 1005 */
     "get_global",
     "get_global_p_p_s",
     "Parrot_get_global_p_p_s",
@@ -12250,7 +12273,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1004 */
+  { /* 1006 */
     "get_global",
     "get_global_p_pc_s",
     "Parrot_get_global_p_pc_s",
@@ -12261,7 +12284,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1005 */
+  { /* 1007 */
     "get_global",
     "get_global_p_p_sc",
     "Parrot_get_global_p_p_sc",
@@ -12272,7 +12295,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1006 */
+  { /* 1008 */
     "get_global",
     "get_global_p_pc_sc",
     "Parrot_get_global_p_pc_sc",
@@ -12283,7 +12306,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1007 */
+  { /* 1009 */
     "get_hll_global",
     "get_hll_global_p_s",
     "Parrot_get_hll_global_p_s",
@@ -12294,7 +12317,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1008 */
+  { /* 1010 */
     "get_hll_global",
     "get_hll_global_p_sc",
     "Parrot_get_hll_global_p_sc",
@@ -12305,7 +12328,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1009 */
+  { /* 1011 */
     "get_hll_global",
     "get_hll_global_p_p_s",
     "Parrot_get_hll_global_p_p_s",
@@ -12316,7 +12339,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1010 */
+  { /* 1012 */
     "get_hll_global",
     "get_hll_global_p_pc_s",
     "Parrot_get_hll_global_p_pc_s",
@@ -12327,7 +12350,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1011 */
+  { /* 1013 */
     "get_hll_global",
     "get_hll_global_p_p_sc",
     "Parrot_get_hll_global_p_p_sc",
@@ -12338,7 +12361,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1012 */
+  { /* 1014 */
     "get_hll_global",
     "get_hll_global_p_pc_sc",
     "Parrot_get_hll_global_p_pc_sc",
@@ -12349,7 +12372,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1013 */
+  { /* 1015 */
     "get_root_global",
     "get_root_global_p_s",
     "Parrot_get_root_global_p_s",
@@ -12360,7 +12383,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1014 */
+  { /* 1016 */
     "get_root_global",
     "get_root_global_p_sc",
     "Parrot_get_root_global_p_sc",
@@ -12371,7 +12394,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1015 */
+  { /* 1017 */
     "get_root_global",
     "get_root_global_p_p_s",
     "Parrot_get_root_global_p_p_s",
@@ -12382,7 +12405,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1016 */
+  { /* 1018 */
     "get_root_global",
     "get_root_global_p_pc_s",
     "Parrot_get_root_global_p_pc_s",
@@ -12393,7 +12416,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1017 */
+  { /* 1019 */
     "get_root_global",
     "get_root_global_p_p_sc",
     "Parrot_get_root_global_p_p_sc",
@@ -12404,7 +12427,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1018 */
+  { /* 1020 */
     "get_root_global",
     "get_root_global_p_pc_sc",
     "Parrot_get_root_global_p_pc_sc",
@@ -12415,7 +12438,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1019 */
+  { /* 1021 */
     "set_global",
     "set_global_s_p",
     "Parrot_set_global_s_p",
@@ -12426,7 +12449,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1020 */
+  { /* 1022 */
     "set_global",
     "set_global_sc_p",
     "Parrot_set_global_sc_p",
@@ -12437,7 +12460,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1021 */
+  { /* 1023 */
     "set_global",
     "set_global_p_s_p",
     "Parrot_set_global_p_s_p",
@@ -12448,7 +12471,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1022 */
+  { /* 1024 */
     "set_global",
     "set_global_pc_s_p",
     "Parrot_set_global_pc_s_p",
@@ -12459,7 +12482,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1023 */
+  { /* 1025 */
     "set_global",
     "set_global_p_sc_p",
     "Parrot_set_global_p_sc_p",
@@ -12470,7 +12493,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1024 */
+  { /* 1026 */
     "set_global",
     "set_global_pc_sc_p",
     "Parrot_set_global_pc_sc_p",
@@ -12481,7 +12504,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1025 */
+  { /* 1027 */
     "set_hll_global",
     "set_hll_global_s_p",
     "Parrot_set_hll_global_s_p",
@@ -12492,7 +12515,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1026 */
+  { /* 1028 */
     "set_hll_global",
     "set_hll_global_sc_p",
     "Parrot_set_hll_global_sc_p",
@@ -12503,7 +12526,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1027 */
+  { /* 1029 */
     "set_hll_global",
     "set_hll_global_p_s_p",
     "Parrot_set_hll_global_p_s_p",
@@ -12514,7 +12537,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1028 */
+  { /* 1030 */
     "set_hll_global",
     "set_hll_global_pc_s_p",
     "Parrot_set_hll_global_pc_s_p",
@@ -12525,7 +12548,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1029 */
+  { /* 1031 */
     "set_hll_global",
     "set_hll_global_p_sc_p",
     "Parrot_set_hll_global_p_sc_p",
@@ -12536,7 +12559,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1030 */
+  { /* 1032 */
     "set_hll_global",
     "set_hll_global_pc_sc_p",
     "Parrot_set_hll_global_pc_sc_p",
@@ -12547,7 +12570,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1031 */
+  { /* 1033 */
     "set_root_global",
     "set_root_global_s_p",
     "Parrot_set_root_global_s_p",
@@ -12558,7 +12581,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1032 */
+  { /* 1034 */
     "set_root_global",
     "set_root_global_sc_p",
     "Parrot_set_root_global_sc_p",
@@ -12569,7 +12592,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1033 */
+  { /* 1035 */
     "set_root_global",
     "set_root_global_p_s_p",
     "Parrot_set_root_global_p_s_p",
@@ -12580,7 +12603,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1034 */
+  { /* 1036 */
     "set_root_global",
     "set_root_global_pc_s_p",
     "Parrot_set_root_global_pc_s_p",
@@ -12591,7 +12614,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1035 */
+  { /* 1037 */
     "set_root_global",
     "set_root_global_p_sc_p",
     "Parrot_set_root_global_p_sc_p",
@@ -12602,7 +12625,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1036 */
+  { /* 1038 */
     "set_root_global",
     "set_root_global_pc_sc_p",
     "Parrot_set_root_global_pc_sc_p",
@@ -12613,7 +12636,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1037 */
+  { /* 1039 */
     "find_name",
     "find_name_p_s",
     "Parrot_find_name_p_s",
@@ -12624,7 +12647,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1038 */
+  { /* 1040 */
     "find_name",
     "find_name_p_sc",
     "Parrot_find_name_p_sc",
@@ -12635,7 +12658,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1039 */
+  { /* 1041 */
     "find_sub_not_null",
     "find_sub_not_null_p_s",
     "Parrot_find_sub_not_null_p_s",
@@ -12646,7 +12669,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1040 */
+  { /* 1042 */
     "find_sub_not_null",
     "find_sub_not_null_p_sc",
     "Parrot_find_sub_not_null_p_sc",
@@ -12657,7 +12680,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1041 */
+  { /* 1043 */
     "trap",
     "trap",
     "Parrot_trap",
@@ -12668,7 +12691,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 1042 */
+  { /* 1044 */
     "set_label",
     "set_label_p_ic",
     "Parrot_set_label_p_ic",
@@ -12679,7 +12702,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 1 },
     &core_op_lib
   },
-  { /* 1043 */
+  { /* 1045 */
     "get_label",
     "get_label_i_p",
     "Parrot_get_label_i_p",
@@ -12690,7 +12713,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1044 */
+  { /* 1046 */
     "get_id",
     "get_id_i_p",
     "Parrot_get_id_i_p",
@@ -12701,7 +12724,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1045 */
+  { /* 1047 */
     "get_id",
     "get_id_i_pc",
     "Parrot_get_id_i_pc",
@@ -12712,7 +12735,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0 },
     &core_op_lib
   },
-  { /* 1046 */
+  { /* 1048 */
     "fetch",
     "fetch_p_p_p_p",
     "Parrot_fetch_p_p_p_p",
@@ -12723,7 +12746,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1047 */
+  { /* 1049 */
     "fetch",
     "fetch_p_pc_p_p",
     "Parrot_fetch_p_pc_p_p",
@@ -12734,7 +12757,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1048 */
+  { /* 1050 */
     "fetch",
     "fetch_p_p_pc_p",
     "Parrot_fetch_p_p_pc_p",
@@ -12745,7 +12768,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1049 */
+  { /* 1051 */
     "fetch",
     "fetch_p_pc_pc_p",
     "Parrot_fetch_p_pc_pc_p",
@@ -12756,7 +12779,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1050 */
+  { /* 1052 */
     "fetch",
     "fetch_p_p_p_pc",
     "Parrot_fetch_p_p_p_pc",
@@ -12767,7 +12790,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1051 */
+  { /* 1053 */
     "fetch",
     "fetch_p_pc_p_pc",
     "Parrot_fetch_p_pc_p_pc",
@@ -12778,7 +12801,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1052 */
+  { /* 1054 */
     "fetch",
     "fetch_p_p_pc_pc",
     "Parrot_fetch_p_p_pc_pc",
@@ -12789,7 +12812,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1053 */
+  { /* 1055 */
     "fetch",
     "fetch_p_pc_pc_pc",
     "Parrot_fetch_p_pc_pc_pc",
@@ -12800,7 +12823,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1054 */
+  { /* 1056 */
     "fetch",
     "fetch_p_p_i_p",
     "Parrot_fetch_p_p_i_p",
@@ -12811,7 +12834,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1055 */
+  { /* 1057 */
     "fetch",
     "fetch_p_pc_i_p",
     "Parrot_fetch_p_pc_i_p",
@@ -12822,7 +12845,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1056 */
+  { /* 1058 */
     "fetch",
     "fetch_p_p_ic_p",
     "Parrot_fetch_p_p_ic_p",
@@ -12833,7 +12856,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1057 */
+  { /* 1059 */
     "fetch",
     "fetch_p_pc_ic_p",
     "Parrot_fetch_p_pc_ic_p",
@@ -12844,7 +12867,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1058 */
+  { /* 1060 */
     "fetch",
     "fetch_p_p_i_pc",
     "Parrot_fetch_p_p_i_pc",
@@ -12855,7 +12878,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1059 */
+  { /* 1061 */
     "fetch",
     "fetch_p_pc_i_pc",
     "Parrot_fetch_p_pc_i_pc",
@@ -12866,7 +12889,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1060 */
+  { /* 1062 */
     "fetch",
     "fetch_p_p_ic_pc",
     "Parrot_fetch_p_p_ic_pc",
@@ -12877,7 +12900,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1061 */
+  { /* 1063 */
     "fetch",
     "fetch_p_pc_ic_pc",
     "Parrot_fetch_p_pc_ic_pc",
@@ -12888,7 +12911,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1062 */
+  { /* 1064 */
     "fetch",
     "fetch_p_p_s_p",
     "Parrot_fetch_p_p_s_p",
@@ -12899,7 +12922,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1063 */
+  { /* 1065 */
     "fetch",
     "fetch_p_pc_s_p",
     "Parrot_fetch_p_pc_s_p",
@@ -12910,7 +12933,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1064 */
+  { /* 1066 */
     "fetch",
     "fetch_p_p_sc_p",
     "Parrot_fetch_p_p_sc_p",
@@ -12921,7 +12944,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1065 */
+  { /* 1067 */
     "fetch",
     "fetch_p_pc_sc_p",
     "Parrot_fetch_p_pc_sc_p",
@@ -12932,7 +12955,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1066 */
+  { /* 1068 */
     "fetch",
     "fetch_p_p_s_pc",
     "Parrot_fetch_p_p_s_pc",
@@ -12943,7 +12966,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1067 */
+  { /* 1069 */
     "fetch",
     "fetch_p_pc_s_pc",
     "Parrot_fetch_p_pc_s_pc",
@@ -12954,7 +12977,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1068 */
+  { /* 1070 */
     "fetch",
     "fetch_p_p_sc_pc",
     "Parrot_fetch_p_p_sc_pc",
@@ -12965,7 +12988,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1069 */
+  { /* 1071 */
     "fetch",
     "fetch_p_pc_sc_pc",
     "Parrot_fetch_p_pc_sc_pc",
@@ -12976,7 +12999,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1070 */
+  { /* 1072 */
     "vivify",
     "vivify_p_p_p_p",
     "Parrot_vivify_p_p_p_p",
@@ -12987,7 +13010,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1071 */
+  { /* 1073 */
     "vivify",
     "vivify_p_pc_p_p",
     "Parrot_vivify_p_pc_p_p",
@@ -12998,7 +13021,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1072 */
+  { /* 1074 */
     "vivify",
     "vivify_p_p_pc_p",
     "Parrot_vivify_p_p_pc_p",
@@ -13009,7 +13032,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1073 */
+  { /* 1075 */
     "vivify",
     "vivify_p_pc_pc_p",
     "Parrot_vivify_p_pc_pc_p",
@@ -13020,7 +13043,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1074 */
+  { /* 1076 */
     "vivify",
     "vivify_p_p_p_pc",
     "Parrot_vivify_p_p_p_pc",
@@ -13031,7 +13054,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1075 */
+  { /* 1077 */
     "vivify",
     "vivify_p_pc_p_pc",
     "Parrot_vivify_p_pc_p_pc",
@@ -13042,7 +13065,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1076 */
+  { /* 1078 */
     "vivify",
     "vivify_p_p_pc_pc",
     "Parrot_vivify_p_p_pc_pc",
@@ -13053,7 +13076,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1077 */
+  { /* 1079 */
     "vivify",
     "vivify_p_pc_pc_pc",
     "Parrot_vivify_p_pc_pc_pc",
@@ -13064,7 +13087,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1078 */
+  { /* 1080 */
     "vivify",
     "vivify_p_p_i_p",
     "Parrot_vivify_p_p_i_p",
@@ -13075,7 +13098,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1079 */
+  { /* 1081 */
     "vivify",
     "vivify_p_pc_i_p",
     "Parrot_vivify_p_pc_i_p",
@@ -13086,7 +13109,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1080 */
+  { /* 1082 */
     "vivify",
     "vivify_p_p_ic_p",
     "Parrot_vivify_p_p_ic_p",
@@ -13097,7 +13120,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1081 */
+  { /* 1083 */
     "vivify",
     "vivify_p_pc_ic_p",
     "Parrot_vivify_p_pc_ic_p",
@@ -13108,7 +13131,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1082 */
+  { /* 1084 */
     "vivify",
     "vivify_p_p_i_pc",
     "Parrot_vivify_p_p_i_pc",
@@ -13119,7 +13142,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1083 */
+  { /* 1085 */
     "vivify",
     "vivify_p_pc_i_pc",
     "Parrot_vivify_p_pc_i_pc",
@@ -13130,7 +13153,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1084 */
+  { /* 1086 */
     "vivify",
     "vivify_p_p_ic_pc",
     "Parrot_vivify_p_p_ic_pc",
@@ -13141,7 +13164,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1085 */
+  { /* 1087 */
     "vivify",
     "vivify_p_pc_ic_pc",
     "Parrot_vivify_p_pc_ic_pc",
@@ -13152,7 +13175,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1086 */
+  { /* 1088 */
     "vivify",
     "vivify_p_p_s_p",
     "Parrot_vivify_p_p_s_p",
@@ -13163,7 +13186,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1087 */
+  { /* 1089 */
     "vivify",
     "vivify_p_pc_s_p",
     "Parrot_vivify_p_pc_s_p",
@@ -13174,7 +13197,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1088 */
+  { /* 1090 */
     "vivify",
     "vivify_p_p_sc_p",
     "Parrot_vivify_p_p_sc_p",
@@ -13185,7 +13208,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1089 */
+  { /* 1091 */
     "vivify",
     "vivify_p_pc_sc_p",
     "Parrot_vivify_p_pc_sc_p",
@@ -13196,7 +13219,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1090 */
+  { /* 1092 */
     "vivify",
     "vivify_p_p_s_pc",
     "Parrot_vivify_p_p_s_pc",
@@ -13207,7 +13230,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1091 */
+  { /* 1093 */
     "vivify",
     "vivify_p_pc_s_pc",
     "Parrot_vivify_p_pc_s_pc",
@@ -13218,7 +13241,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1092 */
+  { /* 1094 */
     "vivify",
     "vivify_p_p_sc_pc",
     "Parrot_vivify_p_p_sc_pc",
@@ -13229,7 +13252,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1093 */
+  { /* 1095 */
     "vivify",
     "vivify_p_pc_sc_pc",
     "Parrot_vivify_p_pc_sc_pc",
@@ -13240,7 +13263,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1094 */
+  { /* 1096 */
     "new",
     "new_p_s_i",
     "Parrot_new_p_s_i",
@@ -13251,7 +13274,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1095 */
+  { /* 1097 */
     "new",
     "new_p_sc_i",
     "Parrot_new_p_sc_i",
@@ -13262,7 +13285,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1096 */
+  { /* 1098 */
     "new",
     "new_p_s_ic",
     "Parrot_new_p_s_ic",
@@ -13273,7 +13296,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1097 */
+  { /* 1099 */
     "new",
     "new_p_sc_ic",
     "Parrot_new_p_sc_ic",
@@ -13284,7 +13307,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1098 */
+  { /* 1100 */
     "new",
     "new_p_p_i",
     "Parrot_new_p_p_i",
@@ -13295,7 +13318,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1099 */
+  { /* 1101 */
     "new",
     "new_p_pc_i",
     "Parrot_new_p_pc_i",
@@ -13306,7 +13329,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1100 */
+  { /* 1102 */
     "new",
     "new_p_p_ic",
     "Parrot_new_p_p_ic",
@@ -13317,7 +13340,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1101 */
+  { /* 1103 */
     "new",
     "new_p_pc_ic",
     "Parrot_new_p_pc_ic",
@@ -13328,7 +13351,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1102 */
+  { /* 1104 */
     "root_new",
     "root_new_p_p_i",
     "Parrot_root_new_p_p_i",
@@ -13339,7 +13362,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1103 */
+  { /* 1105 */
     "root_new",
     "root_new_p_pc_i",
     "Parrot_root_new_p_pc_i",
@@ -13350,7 +13373,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1104 */
+  { /* 1106 */
     "root_new",
     "root_new_p_p_ic",
     "Parrot_root_new_p_p_ic",
@@ -13361,7 +13384,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1105 */
+  { /* 1107 */
     "root_new",
     "root_new_p_pc_ic",
     "Parrot_root_new_p_pc_ic",
@@ -13372,7 +13395,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0, 0, 0 },
     &core_op_lib
   },
-  { /* 1106 */
+  { /* 1108 */
     "receive",
     "receive_p",
     "Parrot_receive_p",
@@ -13383,7 +13406,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 1107 */
+  { /* 1109 */
     "wait",
     "wait_p",
     "Parrot_wait_p",
@@ -13394,7 +13417,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 1108 */
+  { /* 1110 */
     "wait",
     "wait_pc",
     "Parrot_wait_pc",
@@ -13405,7 +13428,7 @@ static op_info_t core_op_info_table[1111] = {
     { 0 },
     &core_op_lib
   },
-  { /* 1109 */
+  { /* 1111 */
     "pass",
     "pass",
     "Parrot_pass",
@@ -18186,6 +18209,18 @@ Parrot_sub_p_p_nc(opcode_t *cur_opcode, PARROT_INTERP) {
 opcode_t *
 Parrot_sqrt_n_n(opcode_t *cur_opcode, PARROT_INTERP) {
     NREG(1) = sqrt((FLOATVAL)NREG(2));
+    return (opcode_t *)cur_opcode + 3;
+}
+
+opcode_t *
+Parrot_is_inf_or_nan_i_n(opcode_t *cur_opcode, PARROT_INTERP) {
+    IREG(1) = PARROT_FLOATVAL_IS_INF_OR_NAN(NREG(2));
+    return (opcode_t *)cur_opcode + 3;
+}
+
+opcode_t *
+Parrot_is_inf_or_nan_i_nc(opcode_t *cur_opcode, PARROT_INTERP) {
+    IREG(1) = PARROT_FLOATVAL_IS_INF_OR_NAN(NCONST(2));
     return (opcode_t *)cur_opcode + 3;
 }
 
@@ -24250,7 +24285,7 @@ op_lib_t core_op_lib = {
   3,    /* major_version */
   10,    /* minor_version */
   0,    /* patch_version */
-  1110,             /* op_count */
+  1112,             /* op_count */
   core_op_info_table,       /* op_info_table */
   core_op_func_table,       /* op_func_table */
   get_op          /* op_code() */ 
