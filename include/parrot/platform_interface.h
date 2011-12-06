@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2010, Parrot Foundation.
+ * Copyright (C) 2003-2011, Parrot Foundation.
  */
 
 #ifndef PARROT_PLATFORM_INTERFACE_H_GUARD
@@ -390,6 +390,7 @@ PARROT_EXPORT
 UHUGEINTVAL Parrot_hires_get_time(void);
 
 PARROT_EXPORT
+PARROT_CONST_FUNCTION
 UINTVAL     Parrot_hires_get_tick_duration(void);
 
 /*
